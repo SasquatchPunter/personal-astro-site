@@ -10,7 +10,12 @@
     "format": "prettier . --write"
   },
   "dependencies": {
-    "astro": "^5.1.1"
+    "@astrojs/react": "^4.1.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "astro": "^5.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "prettier": "^3.4.2",
