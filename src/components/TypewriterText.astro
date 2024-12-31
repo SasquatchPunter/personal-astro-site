@@ -1,0 +1,19 @@
+<span><slot /></span>
+
+<style>
+	@keyframes blink {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+	}
+	span {
+		text-align: center;
+		&::after {
+			content: "\2588";
+			animation: blink 1s steps(1) infinite;
+		}
+	}
+</style>
