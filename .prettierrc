@@ -1,14 +1,18 @@
 {
-  "printWidth": 80,
-  "trailingComma": "all",
-  "singleAttributePerLine": false,
-  "plugins": ["prettier-plugin-astro"],
-  "overrides": [
-    {
-      "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
-    }
-  ]
+	"printWidth": 80,
+	"trailingComma": "all",
+	"singleAttributePerLine": false,
+	"htmlWhitespaceSensitivity": "ignore",
+	"bracketSameLine": true,
+	"useTabs": true,
+	"bracketSpacing": false,
+	"plugins": ["prettier-plugin-astro"],
+	"overrides": [
+		{
+			"files": "*.astro",
+			"options": {
+				"parser": "astro"
+			}
+		}
+	]
 }
