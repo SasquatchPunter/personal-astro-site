@@ -1,0 +1,25 @@
+---
+import {defineConfig, Studio} from "sanity";
+import {structureTool} from "sanity/structure";
+
+const config = defineConfig({
+	projectId: import.meta.env.SANITY_PROJECT_ID,
+	dataset: "production",
+	basePath: "/admin",
+	plugins: [structureTool()],
+});
+---
+
+<div>
+	<Studio config={config} client:only="react" />
+</div>
+
+<style>
+	div {
+		height: 100vh;
+		max-height: 100dvh;
+		overscroll-behavior: none;
+		-webkit-font-smoothing: antialiased;
+		overflow: auto;
+	}
+</style>
