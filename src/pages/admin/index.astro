@@ -1,17 +1,9 @@
 ---
-import {defineConfig, Studio} from "sanity";
-import {structureTool} from "sanity/structure";
-
-const config = defineConfig({
-	projectId: import.meta.env.SANITY_PROJECT_ID,
-	dataset: "production",
-	basePath: "/admin",
-	plugins: [structureTool()],
-});
+import Studio from "@src/components/Studio";
 ---
 
 <div>
-	<Studio config={config} client:only="react" />
+	<Studio client:only="react" />
 </div>
 
 <style>
