@@ -7,6 +7,7 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
+		"precommit": "npm run format:write; npm run format:check",
 		"format:write": "prettier . --write",
 		"format:check": "prettier . --check"
 	},
