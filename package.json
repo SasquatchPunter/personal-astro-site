@@ -7,7 +7,8 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"precommit": "npm run format:write; npm run format:check",
+		"pre-commit": "scripts/pre-commit",
+		"pre-commit:setup": "ln -f scripts/pre-commit .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit",
 		"format:write": "prettier . --write",
 		"format:check": "prettier . --check"
 	},
