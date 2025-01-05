@@ -1,10 +1,10 @@
+name: Build and Deploy to S3
+
 on:
     push:
         branches:
             - master
 
 jobs:
-    test:
+    build:
         runs-on: ubuntu-latest
-        steps:
-            - run: echo "1234 get out the door"
