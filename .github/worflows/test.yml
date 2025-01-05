@@ -1,0 +1,10 @@
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "1234 get out the door"
