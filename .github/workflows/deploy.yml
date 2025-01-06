@@ -58,4 +58,4 @@ jobs:
 
             - name: Invalidate CloudFront cache
               run: |
-                  aws cloudfont create-invalidation --distribution-id ${{vars.AWS_CLOUDFRONT_ID}} --paths "/*"
+                  aws cloudfront create-invalidation --distribution-id ${{vars.AWS_CLOUDFRONT_ID}} --paths "/*"
