@@ -9,6 +9,8 @@ jobs:
     build:
         name: Build project
         runs-on: ubuntu-latest
+        env:
+            PUBLIC_SANITY_PROJECT_ID: ${{vars.SANITY_PROJECT_ID}}
         steps:
             - name: Checkout
               uses: actions/checkout@v4
