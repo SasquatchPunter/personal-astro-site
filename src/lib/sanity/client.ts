@@ -1,6 +1,7 @@
 import { createClient } from "@sanity/client";
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+const devToken = import.meta.env.PUBLIC_SANITY_DEV_TOKEN;
 const apiVersion = "2025-01-03";
 
 const client = import.meta.env.PROD
@@ -15,7 +16,7 @@ const client = import.meta.env.PROD
 			dataset: "development",
 			useCdn: false,
 			apiVersion,
-			token: import.meta.env.PUBLIC_SANITY_TOKEN,
+			token: devToken,
 		});
 
 export { client };
