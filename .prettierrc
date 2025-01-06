@@ -5,7 +5,8 @@
 	"htmlWhitespaceSensitivity": "ignore",
 	"bracketSameLine": true,
 	"useTabs": true,
-	"bracketSpacing": false,
+	"tabWidth": 4,
+	"bracketSpacing": true,
 	"plugins": ["prettier-plugin-astro"],
 	"overrides": [
 		{
@@ -13,6 +14,14 @@
 			"options": {
 				"parser": "astro"
 			}
+		},
+		{
+			"files": ".github/workflows/*.yml",
+			"options": { "parser": "yaml" }
+		},
+		{
+			"files": ".prettierrc",
+			"options": { "parser": "json" }
 		}
 	]
 }
