@@ -9,6 +9,8 @@
 		"astro": "astro",
 		"pre-commit": "scripts/pre-commit",
 		"pre-commit:setup": "ln -f scripts/pre-commit .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit",
+		"sanity-typegen": "scripts/sanity-typegen",
+		"sanity-typegen:setup": "chmod +x scripts/sanity-typegen",
 		"format:write": "prettier . --write",
 		"format:check": "prettier . --check"
 	},
