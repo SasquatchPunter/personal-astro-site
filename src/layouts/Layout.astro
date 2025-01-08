@@ -10,7 +10,7 @@ const { pageTitle } = Astro.props;
 const settingsData = await getSettings();
 const main_title = settingsData?.main_title || "Main Title";
 
-const title = `${main_title}${pageTitle && ` | ${pageTitle}`}`;
+const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 ---
 
 <!doctype html>
