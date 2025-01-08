@@ -3,7 +3,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 
-import settings from "@src/lib/sanity/schemas/documents/settings";
+import settings from "lib/sanity/schemas/documents/settings";
 
 /* Tool Configs */
 const structure = structureTool({
