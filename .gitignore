@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# migrations directory -- this is linked from project root to play nice with sanity's cli
+/migrations
