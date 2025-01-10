@@ -1,4 +1,5 @@
 /* Base Config for Sanity */
+
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
@@ -46,6 +47,15 @@ const config = defineConfig({
 	basePath,
 	plugins,
 	schema,
+	document: {
+		actions: (prev, context) => {
+			if (context.schemaType === "settings") {
+				const publish = prev.find(({ action }) => action === "publish");
+				return publish ? [publish] : [];
+			}
+			return prev;
+		},
+	},
 });
 
 export default config;
