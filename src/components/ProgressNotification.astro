@@ -1,8 +1,9 @@
 ---
 import TypewriterText from "@src/components/TypewriterText.astro";
+import SocialLinks from "@src/components/SocialLinks.astro";
 ---
 
-<div>
+<div id="progress-notification">
 	<dialog open>
 		<code>
 			<TypewriterText
@@ -10,10 +11,14 @@ import TypewriterText from "@src/components/TypewriterText.astro";
 			>
 		</code>
 	</dialog>
+
+	<div>
+		<SocialLinks />
+	</div>
 </div>
 
 <style>
-	div {
+	div#progress-notification {
 		position: fixed;
 		top: 0;
 		bottom: 0;
@@ -23,10 +28,18 @@ import TypewriterText from "@src/components/TypewriterText.astro";
 		justify-content: center;
 		align-items: center;
 		background-image: linear-gradient(to top right, #090909, #191b19);
+
+		& dialog {
+			background: #444;
+			color: white;
+			padding: 1em;
+		}
 	}
-	dialog {
-		background: #444;
-		color: white;
-		padding: 1em;
+	div {
+		display: flex;
+		position: absolute;
+		bottom: 0;
+		padding: 2rem;
+		gap: 2rem;
 	}
 </style>
