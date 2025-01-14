@@ -12,6 +12,14 @@ export default defineConfig({
 			experimentalReactChildren: true,
 		}),
 		tailwind(),
-		icon(),
+		icon({
+			iconDir: "src/assets/icons",
+			svgoOptions: {
+				plugins: [
+					"preset-default",
+					{ name: "removeAttrs", params: { attrs: "(fill)" } },
+				],
+			},
+		}),
 	],
 });
