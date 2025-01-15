@@ -4,14 +4,14 @@ import FacebookIcon from "@src/components/icons/FacebookIcon.astro";
 import GithubIcon from "@src/components/icons/GithubIcon.astro";
 import LinkedinIcon from "@src/components/icons/LinkedinIcon.astro";
 
-import { getSettings } from "lib/sanity/fetch";
+export type Props = {
+	github?: string;
+	facebook?: string;
+	linkedin?: string;
+	codepen?: string;
+};
 
-const settings = await getSettings();
-
-const github = settings?.social_links_github;
-const facebook = settings?.social_links_facebook;
-const linkedin = settings?.social_links_linkedin;
-const codepen = settings?.social_links_codepen;
+const { github, facebook, linkedin, codepen } = Astro.props;
 ---
 
 {
