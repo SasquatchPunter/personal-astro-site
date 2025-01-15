@@ -12,13 +12,19 @@ const singletonDocuments: SingletonMap = {
 };
 
 export default defineMigration({
-	title: "Ensure singtleton documents are kept as singletons.",
+	title: "Ensure singtleton documents are kept as singletons. Preserves draft versions.",
 	documentTypes: Object.keys(singletonDocuments),
 	migrate: {
 		document: (doc, context) => {
 			const mutations: Mutation[] = [];
 
-			if (doc._id !== singletonDocuments[doc._type]) {
+			const acceptedIds = [
+				singletonDocuments[doc._type],
+				`drafts.${singletonDocuments[doc._type]}`,
+			];
+
+			if (!acceptedIds.includes(doc._id)) {
+				console.log(`Deleting ${doc._id} from Sanity...`);
 				mutations.push(delete_(doc._id));
 			}
 
