@@ -53,4 +53,7 @@ export default defineType({
 			fieldset: "social_links",
 		}),
 	],
+	initialValue: {
+		main_title: "Main Title",
+	},
 });
