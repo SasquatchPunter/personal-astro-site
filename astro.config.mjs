@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
 
 export default defineConfig({
 	devToolbar: { enabled: false },
@@ -11,5 +12,14 @@ export default defineConfig({
 			experimentalReactChildren: true,
 		}),
 		tailwind(),
+		icon({
+			iconDir: "src/assets/icons",
+			svgoOptions: {
+				plugins: [
+					"preset-default",
+					{ name: "removeAttrs", params: { attrs: "(fill)" } },
+				],
+			},
+		}),
 	],
 });

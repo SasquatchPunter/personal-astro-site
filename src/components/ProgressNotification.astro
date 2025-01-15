@@ -1,8 +1,22 @@
 ---
 import TypewriterText from "@src/components/TypewriterText.astro";
+import SocialLinks from "@src/components/SocialLinks.astro";
+
+import { getSettings } from "lib/sanity/fetch";
+
+const settings = await getSettings();
+
+const github = settings?.social_links_github;
+const facebook = settings?.social_links_facebook;
+const linkedin = settings?.social_links_linkedin;
+const codepen = settings?.social_links_codepen;
+
+const displaySocialLinks = [github, facebook, linkedin, codepen].some(
+	(v) => typeof v === "string",
+);
 ---
 
-<div>
+<div id="progress-notification">
 	<dialog open>
 		<code>
 			<TypewriterText
@@ -10,10 +24,23 @@ import TypewriterText from "@src/components/TypewriterText.astro";
 			>
 		</code>
 	</dialog>
+
+	{
+		displaySocialLinks ? (
+			<div>
+				<SocialLinks
+					github={github}
+					facebook={facebook}
+					linkedin={linkedin}
+					codepen={codepen}
+				/>
+			</div>
+		) : null
+	}
 </div>
 
 <style>
-	div {
+	div#progress-notification {
 		position: fixed;
 		top: 0;
 		bottom: 0;
@@ -23,10 +50,18 @@ import TypewriterText from "@src/components/TypewriterText.astro";
 		justify-content: center;
 		align-items: center;
 		background-image: linear-gradient(to top right, #090909, #191b19);
+
+		& dialog {
+			background: #444;
+			color: white;
+			padding: 1em;
+		}
 	}
-	dialog {
-		background: #444;
-		color: white;
-		padding: 1em;
+	div {
+		display: flex;
+		position: absolute;
+		bottom: 0;
+		padding: 2rem;
+		gap: 2rem;
 	}
 </style>

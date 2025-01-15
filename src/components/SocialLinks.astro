@@ -1,0 +1,56 @@
+---
+import CodepenIcon from "@src/components/icons/CodepenIcon.astro";
+import FacebookIcon from "@src/components/icons/FacebookIcon.astro";
+import GithubIcon from "@src/components/icons/GithubIcon.astro";
+import LinkedinIcon from "@src/components/icons/LinkedinIcon.astro";
+
+export type Props = {
+	github?: string;
+	facebook?: string;
+	linkedin?: string;
+	codepen?: string;
+};
+
+const { github, facebook, linkedin, codepen } = Astro.props;
+---
+
+{
+	typeof github === "string" ? (
+		<a target="_blank" href={github}>
+			<GithubIcon />
+		</a>
+	) : null
+}
+{
+	typeof facebook === "string" ? (
+		<a target="_blank" href={facebook}>
+			<FacebookIcon />
+		</a>
+	) : null
+}
+{
+	typeof linkedin === "string" ? (
+		<a target="_blank" href={linkedin}>
+			<LinkedinIcon />
+		</a>
+	) : null
+}
+{
+	typeof codepen === "string" ? (
+		<a target="_blank" href={codepen}>
+			<CodepenIcon />
+		</a>
+	) : null
+}
+
+<style is:global>
+	svg[data-icon] {
+		width: 2rem;
+		height: 2rem;
+		fill: gray;
+		transition: fill 100ms ease-in-out;
+		&:hover {
+			fill: lightgray;
+		}
+	}
+</style>
