@@ -1,0 +1,16 @@
+name: Test Repository Dispatch
+
+on:
+    repository_dispatch:
+        types: [test_dispatch]
+
+jobs:
+    echo_payload:
+        name: Echo Client Payload
+        runs-on: ubuntu-latest
+        if: ${{ !github.event.client_payload.passed}}
+        steps:
+            - env:
+                  ID: ${{github.event.client_payload._id}}
+                  TYPE: ${{github.event.client_payload._type}}
+              run: echo $TYPE - $ID
