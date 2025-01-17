@@ -9,6 +9,7 @@ type SingletonMap = { [key: string]: string };
 
 const singletonDocuments: SingletonMap = {
 	settings: "settings",
+	deployment: "deployment",
 };
 
 export default defineMigration({
