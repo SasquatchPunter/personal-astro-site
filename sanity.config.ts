@@ -3,8 +3,10 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
+import { deploymentTool } from "lib/sanity/plugins/deployment";
 
-import settings from "lib/sanity/schemas/documents/settings";
+import settingsSchema from "lib/sanity/schemas/documents/settings";
+import deploymentSchema from "lib/sanity/schemas/documents/deployment";
 
 /* Tool Configs */
 const structure = structureTool({
@@ -13,17 +15,18 @@ const structure = structureTool({
 			.title("Content")
 			.items([
 				S.listItem()
-					.title(settings.title || "Title")
+					.title(settingsSchema.title || "Title")
 					.id("settings")
 					.child(
 						S.document()
-							.title(settings.title || "Title")
+							.title(settingsSchema.title || "Title")
 							.schemaType("settings")
 							.documentId("settings"),
 					),
 			]),
 });
 const vision = visionTool();
+const deployment = deploymentTool();
 
 let projectId: string;
 let dataset: string;
@@ -38,8 +41,8 @@ if (typeof process !== "undefined") {
 }
 
 const basePath = "/admin";
-const plugins = [structure, vision];
-const schema = { types: [settings] };
+const plugins = [structure, vision, deployment];
+const schema = { types: [settingsSchema, deploymentSchema] };
 
 const config = defineConfig({
 	projectId,
