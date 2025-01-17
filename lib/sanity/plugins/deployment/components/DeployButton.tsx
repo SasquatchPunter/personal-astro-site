@@ -22,6 +22,7 @@ export default function DeployButton() {
 			const newDoc = await client.createOrReplace({
 				_type: "deployment",
 				_id: "deployment",
+				timestamp: new Date().toISOString(),
 			});
 
 			toast.push({ status: "success", title: stateMessages.success });
