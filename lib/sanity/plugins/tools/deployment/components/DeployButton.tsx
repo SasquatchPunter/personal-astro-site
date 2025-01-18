@@ -1,4 +1,4 @@
-import { Button, Flex, Inline, Text, useToast } from "@sanity/ui";
+import { Button, Inline, Text, useToast } from "@sanity/ui";
 import { useState, useCallback } from "react";
 import { useClient } from "sanity";
 import { RocketIcon } from "@sanity/icons";
