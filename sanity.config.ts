@@ -6,7 +6,6 @@ import { visionTool } from "@sanity/vision";
 import { deploymentTool } from "lib/sanity/plugins/tools/deployment";
 
 import settingsSchema from "lib/sanity/schemas/documents/settings";
-import deploymentSchema from "lib/sanity/schemas/documents/deployment";
 
 /* Tool Configs */
 const structure = structureTool({
@@ -42,7 +41,7 @@ if (typeof process !== "undefined") {
 
 const basePath = "/admin";
 const plugins = [structure, vision, deployment];
-const schema = { types: [settingsSchema, deploymentSchema] };
+const schema = { types: [settingsSchema] };
 
 const config = defineConfig({
 	projectId,
