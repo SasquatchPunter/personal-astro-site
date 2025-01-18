@@ -1,4 +1,5 @@
 /* Base Config for Sanity */
+import type { DocumentDefinition } from "sanity";
 
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
@@ -50,6 +51,17 @@ const config = defineConfig({
 	plugins,
 	schema,
 	document: {
+		newDocumentOptions: (prev, context) => {
+			const excludedDocumentTypes: DocumentDefinition[] = [
+				settingsSchema,
+			];
+
+			return prev.filter(({ templateId }) => {
+				return !excludedDocumentTypes
+					.map(({ name }) => name)
+					.includes(templateId);
+			});
+		},
 		actions: (prev, context) => {
 			if (context.schemaType === "settings") {
 				const publish = prev.find(({ action }) => action === "publish");
