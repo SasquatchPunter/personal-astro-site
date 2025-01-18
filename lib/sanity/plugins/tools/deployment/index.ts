@@ -7,6 +7,7 @@ const tool: Tool = {
 	name: "deployment",
 	title: "Deployment",
 	component: DeploymentToolComponent,
+	options: {},
 };
 
 const deploymentTool = definePlugin({

@@ -3,7 +3,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
-import { deploymentTool } from "lib/sanity/plugins/deployment";
+import { deploymentTool } from "lib/sanity/plugins/tools/deployment";
 
 import settingsSchema from "lib/sanity/schemas/documents/settings";
 import deploymentSchema from "lib/sanity/schemas/documents/deployment";
