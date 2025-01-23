@@ -2,7 +2,7 @@
 
 echo "Running Sanity Typegen script..."
 
-SCHEMA_PATH=src/lib/sanity/types/schema.json
+SCHEMA_PATH=lib/sanity/types/schema.json
 
 npx sanity schema extract --path $SCHEMA_PATH --enforce-required-fields
 
