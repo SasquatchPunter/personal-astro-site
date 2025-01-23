@@ -51,6 +51,12 @@ export default defineType({
 			type: "url",
 			fieldset: "social_links",
 		}),
+		defineField({
+			name: "social_links_email",
+			title: "Email",
+			type: "email",
+			fieldset: "social_links",
+		}),
 	],
 	initialValue: {
 		main_title: "Main Title",
