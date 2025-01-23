@@ -16,8 +16,18 @@ export default defineConfig({
 			iconDir: "src/assets/icons",
 			svgoOptions: {
 				plugins: [
-					"preset-default",
-					{ name: "removeAttrs", params: { attrs: "(fill)" } },
+					{
+						name: "preset-default",
+						params: {
+							overrides: {
+								removeUselessStrokeAndFill: false,
+							},
+						},
+					},
+					{
+						name: "removeAttrs",
+						params: { attrs: "(fill|stroke)$" },
+					},
 				],
 			},
 		}),
