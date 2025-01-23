@@ -10,8 +10,9 @@ const github = settings?.social_links_github;
 const facebook = settings?.social_links_facebook;
 const linkedin = settings?.social_links_linkedin;
 const codepen = settings?.social_links_codepen;
+const email = settings?.social_links_email;
 
-const displaySocialLinks = [github, facebook, linkedin, codepen].some(
+const displaySocialLinks = [github, facebook, linkedin, codepen, email].some(
 	(v) => typeof v === "string",
 );
 ---
@@ -33,6 +34,7 @@ const displaySocialLinks = [github, facebook, linkedin, codepen].some(
 					facebook={facebook}
 					linkedin={linkedin}
 					codepen={codepen}
+					email={email}
 				/>
 			</div>
 		) : null
