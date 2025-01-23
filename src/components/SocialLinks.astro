@@ -3,15 +3,17 @@ import CodepenIcon from "@src/components/icons/CodepenIcon.astro";
 import FacebookIcon from "@src/components/icons/FacebookIcon.astro";
 import GithubIcon from "@src/components/icons/GithubIcon.astro";
 import LinkedinIcon from "@src/components/icons/LinkedinIcon.astro";
+import EmailIcon from "@src/components/icons/EmailIcon.astro";
 
 export type Props = {
 	github?: string;
 	facebook?: string;
 	linkedin?: string;
 	codepen?: string;
+	email?: string;
 };
 
-const { github, facebook, linkedin, codepen } = Astro.props;
+const { github, facebook, linkedin, codepen, email } = Astro.props;
 ---
 
 {
@@ -42,9 +44,22 @@ const { github, facebook, linkedin, codepen } = Astro.props;
 		</a>
 	) : null
 }
+{
+	typeof email === "string" ? (
+		<a target="_blank" href={`mailto:${email}`}>
+			<EmailIcon />
+		</a>
+	) : null
+}
 
-<style is:global>
-	svg[data-icon] {
+<style>
+	:global(
+		svg[data-icon="github"],
+		svg[data-icon="facebook"],
+		svg[data-icon="linkedin"],
+		svg[data-icon="codepen"],
+		svg[data-icon="email"]
+	) {
 		width: 2rem;
 		height: 2rem;
 		fill: gray;
