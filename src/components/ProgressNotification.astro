@@ -1,4 +1,5 @@
 ---
+import InlineCode from "@src/components/InlineCode.astro";
 import TypewriterText from "@src/components/TypewriterText.astro";
 import SocialLinks from "@src/components/SocialLinks.astro";
 
@@ -15,13 +16,17 @@ const email = settings?.social_links_email;
 const displaySocialLinks = [github, facebook, linkedin, codepen, email].some(
 	(v) => typeof v === "string",
 );
+
+const urlPath = Astro.url.pathname;
 ---
 
 <div id="progress-notification">
 	<dialog open>
 		<code>
 			<TypewriterText
-				>Build in progress!<br />Check back later...</TypewriterText
+				>Build in progress at <InlineCode as="span"
+					>{urlPath}</InlineCode
+				>!<br />Check back later...</TypewriterText
 			>
 		</code>
 	</dialog>
@@ -57,13 +62,19 @@ const displaySocialLinks = [github, facebook, linkedin, codepen, email].some(
 			background: #444;
 			color: white;
 			padding: 1em;
+			max-width: 40ch;
+
+			@screen lg {
+				max-width: 60ch;
+			}
 		}
-	}
-	div {
-		display: flex;
-		position: absolute;
-		bottom: 0;
-		padding: 2rem;
-		gap: 2rem;
+
+		& div {
+			display: flex;
+			position: absolute;
+			bottom: 0;
+			padding: 2rem;
+			gap: 2rem;
+		}
 	}
 </style>

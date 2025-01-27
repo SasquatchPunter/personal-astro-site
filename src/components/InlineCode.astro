@@ -1,0 +1,19 @@
+---
+export interface Props {
+	children: any | any[];
+	as?: "span" | "code";
+}
+
+const { as: Tag = "code" } = Astro.props;
+---
+
+<Tag><slot /></Tag><style>
+	code,
+	span {
+		background-image: linear-gradient(to top, #000a, #0004);
+		color: #dfd;
+		border-radius: 4px;
+		border: #888 1px solid;
+		padding: 0 1ch;
+	}
+</style>
