@@ -1,4 +1,7 @@
 ---
+import DosisProvider from "@src/components/fonts/DosisProvider.astro";
+import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
+
 import { getSettings } from "lib/sanity/fetch";
 
 export interface Props {
@@ -16,11 +19,15 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 <!doctype html>
 <html lang="en">
 	<head>
+		<title>{title}</title>
+
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<DosisProvider />
+		<IcebergProvider />
 	</head>
 	<body>
 		<slot />
