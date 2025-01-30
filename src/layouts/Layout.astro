@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from "astro:transitions";
+
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
 
@@ -28,6 +30,8 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<DosisProvider />
 		<IcebergProvider />
+
+		<ClientRouter fallback="swap" />
 	</head>
 	<body>
 		<slot />
