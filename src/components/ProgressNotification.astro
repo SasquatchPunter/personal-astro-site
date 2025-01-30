@@ -21,7 +21,7 @@ const urlPath = Astro.url.pathname;
 ---
 
 <div id="progress-notification">
-	<dialog open>
+	<dialog open transition:animate="slide">
 		<code>
 			<TypewriterText
 				>Build in progress at <InlineCode as="span"
@@ -44,37 +44,41 @@ const urlPath = Astro.url.pathname;
 			</div>
 		) : null
 	}
-</div>
 
-<style>
-	div#progress-notification {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-image: linear-gradient(to top right, #090909, #191b19);
+	<style>
+		div#progress-notification {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-image: linear-gradient(
+				to top right,
+				theme(colors.base.1),
+				theme(colors.base.2)
+			);
 
-		& dialog {
-			background: #444;
-			color: white;
-			padding: 1em;
-			max-width: 40ch;
+			& dialog {
+				background: #444;
+				color: white;
+				padding: 1em;
+				max-width: 40ch;
 
-			@screen lg {
-				max-width: 60ch;
+				@screen lg {
+					max-width: 60ch;
+				}
+			}
+
+			& div {
+				display: flex;
+				position: absolute;
+				bottom: 0;
+				padding: 2rem;
+				gap: 2rem;
 			}
 		}
-
-		& div {
-			display: flex;
-			position: absolute;
-			bottom: 0;
-			padding: 2rem;
-			gap: 2rem;
-		}
-	}
-</style>
+	</style>
+</div>
