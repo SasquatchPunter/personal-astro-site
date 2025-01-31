@@ -18,7 +18,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "");
 	nav {
 		font-family: Iceberg, Tahoma, sans-serif;
 		font-size: 0.75rem;
-		color: theme(colors.base.text.1);
+		color: theme(colors.base.dark.text.1);
 		width: max-content;
 		margin: 1em 2em;
 		display: flex;
@@ -36,7 +36,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "");
 			}
 
 			&.current > span {
-				color: theme(colors.base.text.link.1);
+				color: theme(colors.base.dark.text.link);
 				transform: scale(1.1) translate(0.3em, 0.3em);
 			}
 		}

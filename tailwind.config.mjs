@@ -13,12 +13,12 @@ export default {
 		extend: {
 			colors: {
 				base: {
-					1: "#090909",
-					2: "#191d19",
-					text: {
-						1: "#fff",
-						link: {
-							1: "#9a9",
+					dark: {
+						1: "#090909",
+						2: "#191d19",
+						text: {
+							1: "#fff",
+							link: "#9a9",
 						},
 					},
 				},
