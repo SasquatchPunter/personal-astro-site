@@ -4,9 +4,19 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
+import glsl from "vite-plugin-glsl";
 
 export default defineConfig({
 	devToolbar: { enabled: false },
+	vite: {
+		plugins: [
+			glsl({
+				include: ["**/*.fs", "**/*.vs", "**/*.glsl"],
+				defaultExtension: "glsl",
+				watch: true,
+			}),
+		],
+	},
 	integrations: [
 		react({
 			experimentalReactChildren: true,
