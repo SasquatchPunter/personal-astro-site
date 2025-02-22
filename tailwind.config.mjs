@@ -20,6 +20,9 @@ export default {
 							1: "#fff",
 							link: "#9a9",
 							code: "#dfd",
+							hightlight: {
+								1: "#f0f",
+							},
 						},
 					},
 				},
