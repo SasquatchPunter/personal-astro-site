@@ -1,9 +1,11 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Body from "@src/components/Body.astro";
+import Html from "@src/components/Html.astro";
 
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
+import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 
 import { getSettings } from "lib/sanity/fetch";
 
@@ -19,21 +21,26 @@ const main_title = settingsData?.main_title || "Main Title";
 const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
+<Html
+	><head>
 		<title>{title}</title>
 
+		<!-- Meta Tags -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#090909" />
 
+		<!-- Links -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<!-- Font Providers -->
 		<DosisProvider />
 		<IcebergProvider />
+		<MichromaProvider />
 
 		<ClientRouter fallback="swap" />
 	</head>
 
-	<Body><slot /></Body>
-</html>
+	<Body><slot /></Body></Html
+>
