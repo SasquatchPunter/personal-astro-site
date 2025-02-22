@@ -1,10 +1,36 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
-import ProgressNotification from "@src/components/ProgressNotification.astro";
 import Navbar from "@src/components/Navbar.astro";
+import MainPageCanvas from "@src/components/MainPageCanvas.astro";
 ---
 
 <Layout>
 	<Navbar />
-	<ProgressNotification />
+	<header>
+		<MainPageCanvas />
+	</header>
 </Layout>
+
+<style>
+	header {
+		font-size: 1rem;
+		font-family: Michroma, Impact, sans-serif;
+		width: 100%;
+		height: 100vh;
+		position: relative;
+
+		& div {
+			margin: 3em;
+			position: absolute;
+			top: 0;
+		}
+
+		& h2 {
+			& span {
+				text-shadow: 1px 1px 0 theme(colors.base.dark.text.hightlight.1);
+			}
+			font-size: 1em;
+			text-align: center;
+		}
+	}
+</style>
