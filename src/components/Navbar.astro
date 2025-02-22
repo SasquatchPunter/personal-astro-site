@@ -4,13 +4,13 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "");
 
 <nav>
 	<a href="/" class:list={[{ current: pathname === "" }]}
-		>01 / <span transition:name="nav./">Home</span></a
+		>01 / <span transition:name="nav/">Home</span></a
 	>
 	<a href="/writings" class:list={[{ current: pathname === "/writings" }]}
-		>02 / <span transition:name="nav./writings">Writings</span></a
+		>02 / <span transition:name="nav/writings">Blog</span></a
 	>
 	<a href="/work" class:list={[{ current: pathname === "/work" }]}
-		>03 / <span transition:name="nav./work">Work</span></a
+		>03 / <span transition:name="nav/work">Work</span></a
 	>
 </nav>
 
@@ -18,12 +18,11 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "");
 	nav {
 		font-family: Iceberg, Tahoma, sans-serif;
 		font-size: 0.75rem;
-		color: theme(colors.base.dark.text.1);
 		width: max-content;
 		margin: 1em 2em;
 		display: flex;
 		position: sticky;
-		z-index: 1;
+		z-index: 999;
 		top: 1em;
 		justify-content: space-between;
 		gap: 3em;
