@@ -52,6 +52,12 @@ export default defineType({
 			fieldset: "social_links",
 		}),
 		defineField({
+			name: "social_links_shadertoy",
+			title: "Shadertoy",
+			type: "url",
+			fieldset: "social_links",
+		}),
+		defineField({
 			name: "social_links_email",
 			title: "Email",
 			type: "email",
