@@ -11,11 +11,17 @@ const github = settings?.social_links_github;
 const facebook = settings?.social_links_facebook;
 const linkedin = settings?.social_links_linkedin;
 const codepen = settings?.social_links_codepen;
+const shadertoy = settings?.social_links_shadertoy;
 const email = settings?.social_links_email;
 
-const displaySocialLinks = [github, facebook, linkedin, codepen, email].some(
-	(v) => typeof v === "string",
-);
+const displaySocialLinks = [
+	github,
+	facebook,
+	linkedin,
+	codepen,
+	shadertoy,
+	email,
+].some((v) => typeof v === "string");
 
 const urlPath = Astro.url.pathname;
 ---
@@ -39,6 +45,7 @@ const urlPath = Astro.url.pathname;
 					facebook={facebook}
 					linkedin={linkedin}
 					codepen={codepen}
+					shadertoy={shadertoy}
 					email={email}
 				/>
 			</div>
