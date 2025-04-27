@@ -13,67 +13,73 @@ export type Props = {
 	codepen?: string;
 	shadertoy?: string;
 	email?: string;
+	class?: string;
 };
 
-const { github, facebook, linkedin, codepen, shadertoy, email } = Astro.props;
+const {
+	github,
+	facebook,
+	linkedin,
+	codepen,
+	shadertoy,
+	email,
+	class: className,
+} = Astro.props;
 ---
 
 {
 	typeof github === "string" ? (
-		<a target="_blank" href={github}>
+		<a target="_blank" href={github} class={className} title="Github">
 			<GithubIcon />
 		</a>
 	) : null
 }
 {
 	typeof facebook === "string" ? (
-		<a target="_blank" href={facebook}>
+		<a target="_blank" href={facebook} class={className} title="Facebook">
 			<FacebookIcon />
 		</a>
 	) : null
 }
 {
 	typeof linkedin === "string" ? (
-		<a target="_blank" href={linkedin}>
+		<a target="_blank" href={linkedin} class={className} title="LinkedIn">
 			<LinkedinIcon />
 		</a>
 	) : null
 }
 {
 	typeof codepen === "string" ? (
-		<a target="_blank" href={codepen}>
+		<a target="_blank" href={codepen} class={className} title="Codepen">
 			<CodepenIcon />
 		</a>
 	) : null
 }
 {
 	typeof shadertoy === "string" ? (
-		<a target="_blank" href={shadertoy}>
+		<a target="_blank" href={shadertoy} class={className} title="Shadertoy">
 			<ShadertoyIcon />
 		</a>
 	) : null
 }
 {
 	typeof email === "string" ? (
-		<a target="_blank" href={`mailto:${email}`}>
+		<a
+			target="_blank"
+			href={`mailto:${email}`}
+			class={className}
+			title="Email">
 			<EmailIcon />
 		</a>
 	) : null
 }
 
 <style>
-	:global(
-		svg[data-icon="github"],
-		svg[data-icon="facebook"],
-		svg[data-icon="linkedin"],
-		svg[data-icon="codepen"],
-		svg[data-icon="shadertoy"],
-		svg[data-icon="email"]
-	) {
-		width: 2rem;
-		height: 2rem;
+	/* Default style */
+	:global(svg) {
 		fill: gray;
-		transition: fill 100ms ease-in-out;
+		transition: 200ms ease-in-out;
+
 		&:hover {
 			fill: lightgray;
 		}
