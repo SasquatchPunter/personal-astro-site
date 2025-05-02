@@ -13,8 +13,18 @@ export default {
 		extend: {
 			colors: {
 				base: {
-					1: "#090909",
-					2: "#191d19",
+					dark: {
+						1: "#090909",
+						2: "#2a392a",
+						text: {
+							1: "#fff",
+							link: "#9a9",
+							code: "#dfd",
+							hightlight: {
+								1: "#f0f",
+							},
+						},
+					},
 				},
 			},
 		},
