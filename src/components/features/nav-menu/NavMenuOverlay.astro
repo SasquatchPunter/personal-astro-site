@@ -1,0 +1,44 @@
+<div id="nav-menu__overlay">
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="/writings">Blog</a></li>
+		<li><a href="work">Work</a></li>
+	</ul>
+</div>
+
+<style>
+	div#nav-menu__overlay {
+		font-family: Michroma;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+
+		opacity: 1;
+		background: #444a;
+		transition: 200ms cubic-bezier(1, 0, 0, 1);
+		transform: translateX(calc(100%));
+	}
+
+	:global(nav#nav-menu[data-open]) div#nav-menu__overlay {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	div#nav-menu__overlay ul {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	div#nav-menu__overlay ul li {
+		padding: 1em;
+		background: #444;
+		text-align: center;
+	}
+</style>
