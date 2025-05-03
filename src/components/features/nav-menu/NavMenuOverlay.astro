@@ -1,4 +1,4 @@
-<nav id="nav-menu">
+<nav id="nav-menu" transition:persist="nav-menu">
 	<ul>
 		<li><a href="/">Home</a></li>
 		<li><a href="/writings">Blog</a></li>
@@ -16,8 +16,6 @@
 
 	register("open", open);
 	register("close", close);
-
-	document.addEventListener("astro:after-swap", close);
 </script>
 
 <style>

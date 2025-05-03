@@ -5,3 +5,9 @@ import NavMenuOverlay from "./NavMenuOverlay.astro";
 
 <NavMenuOverlay />
 <NavMenuToggle />
+
+<script>
+	import { dispatch } from "@src/events/global/nav-menu";
+
+	document.addEventListener("astro:after-swap", () => dispatch("close"));
+</script>
