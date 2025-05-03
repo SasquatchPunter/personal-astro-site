@@ -3,33 +3,5 @@ import NavMenuToggle from "./NavMenuToggle.astro";
 import NavMenuOverlay from "./NavMenuOverlay.astro";
 ---
 
-<nav id="nav-menu" transition:persist="nav-menu">
-	<NavMenuToggle />
-	<NavMenuOverlay />
-</nav>
-
-<script>
-	import { register, dispatch } from "@src/events/global/nav-menu";
-
-	const $nav = document.querySelector("nav#nav-menu")! as HTMLElement;
-
-	register("open", () => {
-		$nav.setAttribute("data-open", "true");
-	});
-	register("close", () => {
-		$nav.removeAttribute("data-open");
-	});
-
-	document.addEventListener("astro:after-swap", () => dispatch("close"));
-</script>
-
-<style>
-	nav {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 999;
-	}
-</style>
+<NavMenuOverlay />
+<NavMenuToggle />

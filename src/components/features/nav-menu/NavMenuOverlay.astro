@@ -1,15 +1,29 @@
-<div id="nav-menu__overlay">
+<nav id="nav-menu">
 	<ul>
 		<li><a href="/">Home</a></li>
 		<li><a href="/writings">Blog</a></li>
 		<li><a href="/work">Work</a></li>
 	</ul>
-</div>
+</nav>
+
+<script>
+	import { register } from "@src/events/global/nav-menu";
+
+	const $nav = document.querySelector("nav#nav-menu")!;
+
+	const open = () => $nav.setAttribute("data-open", "true");
+	const close = () => $nav.removeAttribute("data-open");
+
+	register("open", open);
+	register("close", close);
+
+	document.addEventListener("astro:after-swap", close);
+</script>
 
 <style>
-	div#nav-menu__overlay {
+	nav#nav-menu {
 		font-family: Michroma;
-		position: absolute;
+		position: fixed;
 		left: 0;
 		right: 0;
 		top: 0;
@@ -18,6 +32,7 @@
 		justify-content: center;
 		align-items: center;
 		color: white;
+		z-index: 999;
 
 		opacity: 1;
 		background: #444a;
@@ -25,18 +40,18 @@
 		transform: translateX(calc(100%));
 	}
 
-	:global(nav#nav-menu[data-open]) div#nav-menu__overlay {
+	nav#nav-menu[data-open] {
 		opacity: 1;
 		transform: translateX(0);
 	}
 
-	div#nav-menu__overlay ul {
+	nav#nav-menu ul {
 		display: flex;
 		flex-direction: column;
-		gap: 1em;
+		gap: 2em;
 	}
 
-	div#nav-menu__overlay ul li {
+	nav#nav-menu ul li {
 		padding: 1em;
 		background: #444;
 		text-align: center;
