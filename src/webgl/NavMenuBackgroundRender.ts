@@ -4,15 +4,17 @@ const vertexShader = `
 precision mediump float;
 
 attribute vec4 aPosition;
-
-uniform vec2 uResolution;
         
+varying vec2 vPos;
 varying vec2 vUv;
-varying vec2 vNormalUv;
+
+vec2 toUv(vec2 ndc) {
+    return vec2((ndc.x + 1.0) / 2.0, (ndc.y + 1.0) / 2.0);
+}
 
 void main() {
-    vUv = aPosition.xy;
-    vNormalUv = vec2((aPosition.x + 1.0) / 2.0, (aPosition.y + 1.0) / 2.0);
+    vPos = aPosition.xy;
+    vUv = toUv(vPos);
     gl_Position = aPosition;
 }
 `;
@@ -24,19 +26,19 @@ uniform float uTime;
 uniform float uOpenState;
 uniform vec2 uResolution;
 
+varying vec2 vPos;
 varying vec2 vUv;
-varying vec2 vNormalUv;
 
 void main() {
     float minRadius = -1.0 + uOpenState * 2.0;
     float maxRadius = 0.0 + uOpenState;
-    float radius = mix(minRadius, maxRadius, vNormalUv.x); // 
+    float radius = mix(minRadius, maxRadius, vUv.x); // 
     float vertical = 50.0; // number of dots vertically
     float cellSize = uResolution.y / vertical;
 
     vec2 localOrigin = vec2(cellSize) / 2.0;
 
-    vec2 pixelCoords = uResolution * vNormalUv;
+    vec2 pixelCoords = uResolution * vUv;
 
     vec2 cellCoords = vec2(floor(pixelCoords.x / cellSize), floor(pixelCoords.y / cellSize));
 
