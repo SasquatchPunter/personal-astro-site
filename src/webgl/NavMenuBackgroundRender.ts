@@ -24,6 +24,7 @@ precision mediump float;
 
 uniform float uTime;
 uniform float uOpenState;
+uniform float uVerticalCells;
 uniform vec2 uResolution;
 
 varying vec2 vPos;
@@ -33,7 +34,7 @@ void main() {
     float minRadius = -1.0 + uOpenState * 2.0;
     float maxRadius = 0.0 + uOpenState;
     float radius = mix(minRadius, maxRadius, vUv.x); // 
-    float vertical = 50.0; // number of dots vertically
+    float vertical = uVerticalCells; // number of dots vertically
     float cellSize = uResolution.y / vertical;
 
     vec2 localOrigin = vec2(cellSize) / 2.0;
@@ -56,6 +57,10 @@ void main() {
 }
 `;
 
+type Options = {
+	verticalCells?: number;
+};
+
 type DataBindings = {
 	[name: string]: {
 		/** Indexed location of the data binding in the program */
@@ -66,6 +71,7 @@ type DataBindings = {
 };
 
 export default class NavMenuBackgroundRender {
+	private options: Options;
 	private canvas: HTMLCanvasElement;
 	private gl: WebGLRenderingContext;
 	private program: WebGLProgram;
@@ -73,7 +79,7 @@ export default class NavMenuBackgroundRender {
 	private uniforms: DataBindings;
 	private frameRef: number;
 
-	constructor(canvas: HTMLCanvasElement) {
+	constructor(canvas: HTMLCanvasElement, options?: Options) {
 		this.canvas = canvas;
 		const gl = canvas.getContext("webgl");
 
@@ -83,6 +89,7 @@ export default class NavMenuBackgroundRender {
 			);
 		}
 
+		this.options = options || {};
 		this.gl = gl;
 		this.program = this.gl.createProgram();
 		this.attributes = {};
@@ -99,10 +106,15 @@ export default class NavMenuBackgroundRender {
 		this.start = this.start.bind(this);
 		this.stop = this.stop.bind(this);
 
+		this.initOptions();
 		this.initShaders();
 		this.initProgram();
 		this.initAttributes();
 		this.initUniforms();
+	}
+
+	private initOptions() {
+		this.options.verticalCells ??= 100;
 	}
 
 	private initShaders() {
@@ -208,6 +220,15 @@ export default class NavMenuBackgroundRender {
 			this.uniforms.uOpenState.index,
 			this.uniforms.uOpenState.data,
 		);
+
+		this.uniforms.uVerticalCells = {
+			index: this.gl.getUniformLocation(this.program, "uVerticalCells"),
+			data: this.options.verticalCells!,
+		};
+		this.gl.uniform1f(
+			this.uniforms.uVerticalCells.index,
+			this.uniforms.uVerticalCells.data,
+		);
 	}
 
 	private updateUTime(time: number) {
@@ -256,6 +277,7 @@ export default class NavMenuBackgroundRender {
 		this.canvas.height = h;
 		this.gl.viewport(0, 0, w, h);
 		this.updateUResolution(w, h);
+		this.draw();
 	}
 
 	public start() {
