@@ -1,14 +1,12 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
-import Navbar from "@src/components/Navbar.astro";
-import MainPageCanvas from "@src/components/MainPageCanvas.astro";
+import ProgressNotification from "@src/components/ProgressNotification.astro";
+import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
 ---
 
 <Layout>
-	<Navbar />
-	<header>
-		<MainPageCanvas />
-	</header>
+	<NavMenu />
+	<ProgressNotification />
 </Layout>
 
 <style>

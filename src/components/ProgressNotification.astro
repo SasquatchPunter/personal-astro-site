@@ -27,7 +27,7 @@ const urlPath = Astro.url.pathname;
 ---
 
 <div id="progress-notification">
-	<dialog open transition:animate="slide">
+	<div id="progress-notification__text">
 		<code>
 			<TypewriterText
 				>Build in progress at <InlineCode as="span"
@@ -35,11 +35,11 @@ const urlPath = Astro.url.pathname;
 				>!<br />Check back later...</TypewriterText
 			>
 		</code>
-	</dialog>
+	</div>
 
 	{
 		displaySocialLinks ? (
-			<div>
+			<div id="progress-notification__social-links">
 				<SocialLinks
 					github={github}
 					facebook={facebook}
@@ -69,8 +69,7 @@ const urlPath = Astro.url.pathname;
 				theme(colors.base.dark.2)
 			);
 
-			& dialog {
-				color: inherit;
+			& div#progress-notification__text {
 				background: #444;
 				padding: 1em;
 				max-width: 40ch;
@@ -80,7 +79,7 @@ const urlPath = Astro.url.pathname;
 				}
 			}
 
-			& div {
+			& div#progress-notification__social-links {
 				display: flex;
 				position: absolute;
 				bottom: 0;

@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Body from "@src/components/Body.astro";
-import Html from "@src/components/Html.astro";
+import Body from "@src/layouts/Body.astro";
+import Html from "@src/layouts/Html.astro";
 
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
@@ -39,6 +39,7 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<IcebergProvider />
 		<MichromaProvider />
 
+		<!-- Client Scripts -->
 		<ClientRouter fallback="swap" />
 	</head>
 

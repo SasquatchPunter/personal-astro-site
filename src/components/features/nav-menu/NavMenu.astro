@@ -1,0 +1,15 @@
+---
+import NavMenuToggle from "./NavMenuToggle.astro";
+import NavMenuOverlay from "./NavMenuOverlay.astro";
+import NavMenuShutter from "./NavMenuShutter.astro";
+---
+
+<NavMenuShutter />
+<NavMenuOverlay />
+<NavMenuToggle />
+
+<script>
+	import { dispatch } from "@src/events/global/nav-menu";
+
+	document.addEventListener("astro:after-swap", () => dispatch("close"));
+</script>
