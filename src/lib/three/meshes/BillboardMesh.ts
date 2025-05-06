@@ -5,35 +5,22 @@ import {
 	PlaneGeometry,
 	BufferGeometry,
 	InterleavedBufferAttribute,
-	type MeshStandardMaterialParameters,
 } from "three";
-import BillboardMaterial from "@src/three/materials/BillboardMaterial";
+import BillboardMaterial from "@src/lib/three/materials/BillboardMaterial";
 
 class BillboardMeshError extends Error {}
 
-interface BillboardMeshParameters {
-	geometry?: {
-		width?: number;
-		height?: number;
-	};
-	material?: MeshStandardMaterialParameters;
-}
-
 export default class BillboardMesh extends InstancedMesh {
+	declare geometry: PlaneGeometry;
+	declare material: BillboardMaterial;
+
 	public constructor(
 		data: BufferGeometry,
-		parameters?: BillboardMeshParameters,
+		material: BillboardMaterial = new BillboardMaterial(),
 	) {
 		let buffer = data.getAttribute("position");
 
-		super(
-			new PlaneGeometry(
-				parameters?.geometry?.width,
-				parameters?.geometry?.height,
-			),
-			new BillboardMaterial(parameters?.material),
-			buffer.count,
-		);
+		super(new PlaneGeometry(), material, buffer.count);
 
 		this.initMatrix(buffer);
 	}
