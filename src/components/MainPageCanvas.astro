@@ -1,9 +1,11 @@
-<canvas transition:persist></canvas>
+<canvas id="main-page-canvas" transition:persist></canvas>
 
 <script>
 	import MainPageRender from "@src/lib/three/renders/MainPageRender";
 
-	let render = new MainPageRender(document.querySelector("canvas")!);
+	let render = new MainPageRender(
+		document.querySelector("canvas#main-page-canvas")!,
+	);
 
 	render.load().then(() => render.start());
 
