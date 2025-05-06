@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import path from "path";
 
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
@@ -16,6 +17,11 @@ export default defineConfig({
 				watch: true,
 			}),
 		],
+		resolve: {
+			alias: {
+				"@src": path.resolve(__dirname, "./src"),
+			},
+		},
 	},
 	integrations: [
 		react({
