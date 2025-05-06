@@ -59,6 +59,8 @@ void main() {
 
 type Options = {
 	verticalCells?: number;
+	openDuration?: number;
+	closeDuration?: number;
 };
 
 type DataBindings = {
@@ -70,7 +72,7 @@ type DataBindings = {
 	};
 };
 
-export default class NavMenuBackgroundRender {
+export default class NavMenuShutterRenderer {
 	private options: Options;
 	private canvas: HTMLCanvasElement;
 	private gl: WebGLRenderingContext;
@@ -101,8 +103,8 @@ export default class NavMenuBackgroundRender {
 		this.updateUTime = this.updateUTime.bind(this);
 		this.updateUResolution = this.updateUResolution.bind(this);
 		this.updateUOpenState = this.updateUOpenState.bind(this);
-		this.openShutter = this.openShutter.bind(this);
-		this.closeShutter = this.closeShutter.bind(this);
+		this.open = this.open.bind(this);
+		this.close = this.close.bind(this);
 		this.start = this.start.bind(this);
 		this.stop = this.stop.bind(this);
 
@@ -115,6 +117,8 @@ export default class NavMenuBackgroundRender {
 
 	private initOptions() {
 		this.options.verticalCells ??= 100;
+		this.options.openDuration ??= 1000;
+		this.options.closeDuration ??= 1000;
 	}
 
 	private initShaders() {
@@ -288,14 +292,16 @@ export default class NavMenuBackgroundRender {
 		cancelAnimationFrame(this.frameRef);
 	}
 
-	public openShutter() {
+	public open() {
 		const state = { ...this.uniforms.uOpenState };
+		const options = this.options as Required<Options>;
 		const updateUOpenState = this.updateUOpenState;
 
 		animate(state, {
 			data: {
 				to: 1,
 			},
+			duration: options.openDuration,
 			onUpdate: () => {
 				updateUOpenState(state.data);
 			},
@@ -304,14 +310,16 @@ export default class NavMenuBackgroundRender {
 		});
 	}
 
-	public closeShutter() {
+	public close() {
 		const state = { ...this.uniforms.uOpenState };
+		const options = this.options as Required<Options>;
 		const updateUOpenState = this.updateUOpenState;
 
 		animate(state, {
 			data: {
 				to: 0,
 			},
+			duration: options.closeDuration,
 			onUpdate: () => {
 				updateUOpenState(state.data);
 			},

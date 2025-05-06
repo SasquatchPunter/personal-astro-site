@@ -1,12 +1,7 @@
----
-import NavMenuOverlayBackground from "./NavMenuOverlayBackground.astro";
----
-
-<NavMenuOverlayBackground />
 <nav id="nav-menu" transition:persist="nav-menu">
 	<ul>
 		<li><a href="/">Home</a></li>
-		<li><a href="/writings">Blog</a></li>
+		<li><a href="/writings">Writings</a></li>
 		<li><a href="/work">Work</a></li>
 	</ul>
 </nav>
@@ -32,31 +27,32 @@ import NavMenuOverlayBackground from "./NavMenuOverlayBackground.astro";
 		top: 0;
 		bottom: 0;
 		display: flex;
-		justify-content: center;
+		justify-content: right;
 		align-items: center;
-		color: white;
+		color: theme(colors.base.dark.text.1);
 		z-index: 999;
-
-		opacity: 1;
-		transition: 200ms ease-out;
-		transform: translateX(calc(100%));
+		pointer-events: none;
 	}
 
 	nav#nav-menu[data-open] {
-		opacity: 1;
-		transform: translateX(0);
+		pointer-events: all;
+		& ul {
+			transition-delay: 250ms;
+			clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+		}
 	}
 
 	nav#nav-menu ul {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		gap: 1em;
+		margin: 0.5em;
 		z-index: 10;
+		transition: clip-path 250ms ease-in-out;
+		clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
 	}
 
 	nav#nav-menu ul li {
-		padding: 1em;
-		background: #444;
-		text-align: center;
+		text-align: right;
 	}
 </style>
