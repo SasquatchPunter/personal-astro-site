@@ -30,6 +30,7 @@
 		"animejs": "^4.0.2",
 		"astro": "^5.1.1",
 		"astro-icon": "^1.1.5",
+		"cannon-es": "^0.20.0",
 		"jsdom": "^26.0.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
