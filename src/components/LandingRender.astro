@@ -1,0 +1,30 @@
+<canvas id="landing-render"></canvas>
+
+<script>
+	import LandingRender from "@src/lib/three/renders/LandingRender";
+
+	const render = new LandingRender(
+		document.querySelector("canvas#landing-render")!,
+		{
+			sphereCount: 300,
+			sphereRadius: 0.05,
+			sphereMass: 10,
+			sphereDamping: 0.3,
+			agitatorRadius: 0.8,
+		},
+	);
+
+	await render.load();
+
+	render.startRender();
+</script>
+
+<style>
+	canvas#landing-render {
+		width: 100%;
+		height: 100vh;
+		position: absolute;
+		z-index: -10;
+		top: 0;
+	}
+</style>
