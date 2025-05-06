@@ -151,6 +151,7 @@ export default class LandingRender {
 		window.addEventListener("resize", this.onResize);
 		window.addEventListener("mouseout", this.resetCursor);
 		window.addEventListener("touchend", this.resetCursor);
+		window.addEventListener("mouseup", this.resetCursor);
 	}
 
 	private resetCursor() {
