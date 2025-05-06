@@ -4,15 +4,17 @@ const vertexShader = `
 precision mediump float;
 
 attribute vec4 aPosition;
-
-uniform vec2 uResolution;
         
+varying vec2 vPos;
 varying vec2 vUv;
-varying vec2 vNormalUv;
+
+vec2 toUv(vec2 ndc) {
+    return vec2((ndc.x + 1.0) / 2.0, (ndc.y + 1.0) / 2.0);
+}
 
 void main() {
-    vUv = aPosition.xy;
-    vNormalUv = vec2((aPosition.x + 1.0) / 2.0, (aPosition.y + 1.0) / 2.0);
+    vPos = aPosition.xy;
+    vUv = toUv(vPos);
     gl_Position = aPosition;
 }
 `;
@@ -22,21 +24,22 @@ precision mediump float;
 
 uniform float uTime;
 uniform float uOpenState;
+uniform float uVerticalCells;
 uniform vec2 uResolution;
 
+varying vec2 vPos;
 varying vec2 vUv;
-varying vec2 vNormalUv;
 
 void main() {
     float minRadius = -1.0 + uOpenState * 2.0;
     float maxRadius = 0.0 + uOpenState;
-    float radius = mix(minRadius, maxRadius, vNormalUv.x); // 
-    float vertical = 50.0; // number of dots vertically
+    float radius = mix(minRadius, maxRadius, vUv.x); // 
+    float vertical = uVerticalCells; // number of dots vertically
     float cellSize = uResolution.y / vertical;
 
     vec2 localOrigin = vec2(cellSize) / 2.0;
 
-    vec2 pixelCoords = uResolution * vNormalUv;
+    vec2 pixelCoords = uResolution * vUv;
 
     vec2 cellCoords = vec2(floor(pixelCoords.x / cellSize), floor(pixelCoords.y / cellSize));
 
@@ -54,6 +57,12 @@ void main() {
 }
 `;
 
+type Options = {
+	verticalCells?: number;
+	openDuration?: number;
+	closeDuration?: number;
+};
+
 type DataBindings = {
 	[name: string]: {
 		/** Indexed location of the data binding in the program */
@@ -63,7 +72,8 @@ type DataBindings = {
 	};
 };
 
-export default class NavMenuBackgroundRender {
+export default class NavMenuShutterRenderer {
+	private options: Options;
 	private canvas: HTMLCanvasElement;
 	private gl: WebGLRenderingContext;
 	private program: WebGLProgram;
@@ -71,7 +81,7 @@ export default class NavMenuBackgroundRender {
 	private uniforms: DataBindings;
 	private frameRef: number;
 
-	constructor(canvas: HTMLCanvasElement) {
+	constructor(canvas: HTMLCanvasElement, options?: Options) {
 		this.canvas = canvas;
 		const gl = canvas.getContext("webgl");
 
@@ -81,6 +91,7 @@ export default class NavMenuBackgroundRender {
 			);
 		}
 
+		this.options = options || {};
 		this.gl = gl;
 		this.program = this.gl.createProgram();
 		this.attributes = {};
@@ -92,15 +103,22 @@ export default class NavMenuBackgroundRender {
 		this.updateUTime = this.updateUTime.bind(this);
 		this.updateUResolution = this.updateUResolution.bind(this);
 		this.updateUOpenState = this.updateUOpenState.bind(this);
-		this.openShutter = this.openShutter.bind(this);
-		this.closeShutter = this.closeShutter.bind(this);
+		this.open = this.open.bind(this);
+		this.close = this.close.bind(this);
 		this.start = this.start.bind(this);
 		this.stop = this.stop.bind(this);
 
+		this.initOptions();
 		this.initShaders();
 		this.initProgram();
 		this.initAttributes();
 		this.initUniforms();
+	}
+
+	private initOptions() {
+		this.options.verticalCells ??= 100;
+		this.options.openDuration ??= 1000;
+		this.options.closeDuration ??= 1000;
 	}
 
 	private initShaders() {
@@ -206,6 +224,15 @@ export default class NavMenuBackgroundRender {
 			this.uniforms.uOpenState.index,
 			this.uniforms.uOpenState.data,
 		);
+
+		this.uniforms.uVerticalCells = {
+			index: this.gl.getUniformLocation(this.program, "uVerticalCells"),
+			data: this.options.verticalCells!,
+		};
+		this.gl.uniform1f(
+			this.uniforms.uVerticalCells.index,
+			this.uniforms.uVerticalCells.data,
+		);
 	}
 
 	private updateUTime(time: number) {
@@ -254,6 +281,7 @@ export default class NavMenuBackgroundRender {
 		this.canvas.height = h;
 		this.gl.viewport(0, 0, w, h);
 		this.updateUResolution(w, h);
+		this.draw();
 	}
 
 	public start() {
@@ -264,14 +292,16 @@ export default class NavMenuBackgroundRender {
 		cancelAnimationFrame(this.frameRef);
 	}
 
-	public openShutter() {
+	public open() {
 		const state = { ...this.uniforms.uOpenState };
+		const options = this.options as Required<Options>;
 		const updateUOpenState = this.updateUOpenState;
 
 		animate(state, {
 			data: {
 				to: 1,
 			},
+			duration: options.openDuration,
 			onUpdate: () => {
 				updateUOpenState(state.data);
 			},
@@ -280,14 +310,16 @@ export default class NavMenuBackgroundRender {
 		});
 	}
 
-	public closeShutter() {
+	public close() {
 		const state = { ...this.uniforms.uOpenState };
+		const options = this.options as Required<Options>;
 		const updateUOpenState = this.updateUOpenState;
 
 		animate(state, {
 			data: {
 				to: 0,
 			},
+			duration: options.closeDuration,
 			onUpdate: () => {
 				updateUOpenState(state.data);
 			},
