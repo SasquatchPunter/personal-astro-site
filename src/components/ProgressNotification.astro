@@ -55,6 +55,7 @@ const urlPath = Astro.url.pathname;
 	<style>
 		div#progress-notification {
 			position: fixed;
+			z-index: 10;
 			top: 0;
 			bottom: 0;
 			left: 0;
@@ -70,7 +71,6 @@ const urlPath = Astro.url.pathname;
 
 			& div#progress-notification__text {
 				background: #444;
-				color: white;
 				padding: 1em;
 				max-width: 40ch;
 

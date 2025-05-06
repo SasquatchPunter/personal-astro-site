@@ -9,6 +9,7 @@
 		"paths": {
 			"@src/*": ["src/*"],
 			"@sanity.config": ["sanity.config"]
-		}
+		},
+		"types": ["vite-plugin-glsl/ext"]
 	}
 }

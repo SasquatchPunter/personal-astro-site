@@ -25,11 +25,16 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 	><head>
 		<title>{title}</title>
 
+		<!-- Meta Tags -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#090909" />
 
+		<!-- Links -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<!-- Font Providers -->
 		<DosisProvider />
 		<IcebergProvider />
 		<MichromaProvider />

@@ -1,0 +1,36 @@
+<canvas transition:persist></canvas>
+
+<script>
+	import MainPageRender from "@src/three/renders/MainPageRender";
+
+	let render = new MainPageRender(document.querySelector("canvas")!);
+
+	render.load().then(() => render.start());
+
+	async function handleNavigation() {
+		const isIndexPage = window.location.pathname === "/";
+
+		if (isIndexPage) {
+			render = new MainPageRender(document.querySelector("canvas")!);
+			await render.load().then(() => render.start());
+		} else {
+			render.cleanup();
+		}
+	}
+
+	handleNavigation();
+
+	document.addEventListener("load", handleNavigation);
+	document.addEventListener("astro:after-swap", handleNavigation);
+</script>
+
+<style>
+	canvas {
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		aspect-ratio: 1;
+		margin: auto;
+		position: absolute;
+	}
+</style>
