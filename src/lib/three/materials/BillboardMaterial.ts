@@ -3,7 +3,8 @@ import {
 	type MeshStandardMaterialParameters,
 	type WebGLProgramParametersWithUniforms,
 } from "three";
-import transformBillboards from "@src/three/shaders/chunks/transform-billboard.vs";
+import vertexShader from "@src/lib/three/shaders/billboard_material.vs";
+import fragmentShader from "@src/lib/three/shaders/billboard_material.fs";
 
 export default class BillboardMaterial extends MeshStandardMaterial {
 	public constructor(parameters?: MeshStandardMaterialParameters) {
@@ -11,12 +12,7 @@ export default class BillboardMaterial extends MeshStandardMaterial {
 	}
 
 	onBeforeCompile(params: WebGLProgramParametersWithUniforms): void {
-		let token = `#include <fog_vertex>`;
-		let insert = "\n" + transformBillboards;
-
-		params.vertexShader = params.vertexShader.replace(
-			token,
-			token + insert,
-		);
+		params.vertexShader = vertexShader;
+		params.fragmentShader = fragmentShader;
 	}
 }
