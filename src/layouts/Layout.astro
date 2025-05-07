@@ -6,6 +6,7 @@ import Html from "@src/layouts/Html.astro";
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
 import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
+import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 
 import { getSettings } from "lib/sanity/fetch";
 
@@ -38,6 +39,7 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<DosisProvider />
 		<IcebergProvider />
 		<MichromaProvider />
+		<BoldonseProvider />
 
 		<!-- Client Scripts -->
 		<ClientRouter fallback="swap" />
