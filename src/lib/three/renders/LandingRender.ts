@@ -79,7 +79,6 @@ export default class LandingRender {
 		this.initBindings();
 
 		this.initRenderer();
-		this.initComposer();
 		this.initCamera();
 		this.initListeners();
 		this.initSimulation();
@@ -97,8 +96,6 @@ export default class LandingRender {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.shadowMap.enabled = true;
 	}
-
-	private initComposer() {}
 
 	private initCamera() {
 		this.camera.fov = 65;
@@ -284,7 +281,6 @@ export default class LandingRender {
 		const { width, height } =
 			this.renderer.domElement.getBoundingClientRect();
 		this.renderer.setSize(width, height, false);
-		// this.composer.setSize(width, height, false);
 		this.camera.aspect = width / height;
 		this.camera.updateProjectionMatrix();
 	}
