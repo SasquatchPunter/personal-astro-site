@@ -1,3 +1,46 @@
+---
+type Props = {
+	preload?: boolean;
+};
+
+const { preload } = Astro.props;
+---
+
+{
+	preload ? (
+		<>
+			<link
+				rel="preload"
+				href="/fonts/Dosis/Dosis-VariableFont.ttf"
+				as="font"
+				type="font/ttf"
+				crossorigin
+			/>
+			<link
+				rel="preload"
+				href="/fonts/Dosis/Dosis-Light.ttf"
+				as="font"
+				type="font/ttf"
+				crossorigin
+			/>
+			<link
+				rel="preload"
+				href="/fonts/Dosis/Dosis-Regular.ttf"
+				as="font"
+				type="font/ttf"
+				crossorigin
+			/>
+			<link
+				rel="preload"
+				href="/fonts/Dosis/Dosis-SemiBold.ttf"
+				as="font"
+				type="font/ttf"
+				crossorigin
+			/>
+		</>
+	) : null
+}
+
 <style is:global>
 	@font-face {
 		font-family: "Dosis VF";
