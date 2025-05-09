@@ -23,8 +23,8 @@ const main_title = settingsData?.main_title || "Main Title";
 const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 ---
 
-<Html
-	><head>
+<Html>
+	<head>
 		<title>{title}</title>
 
 		<!-- Meta Tags -->
@@ -39,7 +39,7 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<!-- Font Providers -->
 		<DosisProvider />
 		<IcebergProvider />
-		<MichromaProvider />
+		<MichromaProvider preload />
 		<BoldonseProvider />
 		<Jersey15Provider />
 
@@ -47,5 +47,7 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<ClientRouter fallback="swap" />
 	</head>
 
-	<Body><slot /></Body></Html
->
+	<Body>
+		<slot />
+	</Body>
+</Html>
