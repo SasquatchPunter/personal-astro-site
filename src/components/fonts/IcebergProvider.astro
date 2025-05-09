@@ -1,6 +1,27 @@
+---
+type Props = {
+	preload?: boolean;
+};
+
+const { preload } = Astro.props;
+---
+
+{
+	preload ? (
+		<link
+			rel="preload"
+			href="/fonts/Iceberg/Iceberg-Regular.ttf"
+			as="font"
+			type="font/ttf"
+			crossorigin
+		/>
+	) : null
+}
+
 <style is:global>
 	@font-face {
 		font-family: "Iceberg";
 		src: url("/fonts/Iceberg/Iceberg-Regular.ttf") format("truetype");
+		font-weight: normal;
 	}
 </style>
