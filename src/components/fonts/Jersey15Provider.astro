@@ -1,6 +1,27 @@
+---
+type Props = {
+	preload?: boolean;
+};
+
+const { preload } = Astro.props;
+---
+
+{
+	preload ? (
+		<link
+			rel="preload"
+			href="/fonts/Jersey15/Jersey15-Regular.ttf"
+			as="font"
+			type="font/ttf"
+			crossorigin
+		/>
+	) : null
+}
+
 <style is:global>
 	@font-face {
 		font-family: "Jersey15";
 		src: url("/fonts/Jersey15/Jersey15-Regular.ttf") format("truetype");
+		font-weight: normal;
 	}
 </style>
