@@ -1,0 +1,67 @@
+<svg viewBox="0 0 64 64" stroke-width="0.5">
+	<g>
+		<circle cx="14" cy="14" r="4"> </circle>
+		<circle cx="14" cy="14" r="6"></circle>
+		<circle cx="14" cy="14" r="8"></circle>
+		<circle cx="14" cy="14" r="10"></circle>
+		<circle cx="14" cy="14" r="12"></circle>
+	</g>
+</svg>
+
+<style>
+	svg {
+		width: 6em;
+		height: 6em;
+		stroke: #dfd;
+		fill: none;
+
+		& g:nth-of-type(1) {
+			& circle {
+				animation-name: shift;
+				animation-duration: 2s;
+				animation-timing-function: ease-in-out;
+				animation-iteration-count: infinite;
+				animation-delay: calc(var(--index) * 25ms);
+			}
+
+			& circle:nth-of-type(1) {
+				--index: 0;
+			}
+			& circle:nth-of-type(2) {
+				--index: 1;
+			}
+			& circle:nth-of-type(3) {
+				--index: 2;
+			}
+			& circle:nth-of-type(4) {
+				--index: 3;
+			}
+			& circle:nth-of-type(5) {
+				--index: 4;
+			}
+		}
+	}
+
+	@keyframes shift {
+		0% {
+			cx: 14px;
+			cy: 14px;
+		}
+		25% {
+			cx: 50px;
+			cy: 14px;
+		}
+		50% {
+			cx: 50px;
+			cy: 50px;
+		}
+		75% {
+			cx: 14px;
+			cy: 50px;
+		}
+		100% {
+			cx: 14px;
+			cy: 14px;
+		}
+	}
+</style>

@@ -1,26 +1,15 @@
-<canvas id="landing-render"></canvas>
+---
+import LandingRenderLoader from "./LandingRenderLoader.astro";
+import LandingRenderCanvas from "./LandingRenderCanvas.astro";
+---
 
-<script>
-	import LandingRender from "@src/lib/three/renders/LandingRender";
-
-	const render = new LandingRender(
-		document.querySelector("canvas#landing-render")!,
-		{
-			sphereCount: 300,
-			sphereRadius: 0.05,
-			sphereMass: 10,
-			sphereDamping: 0.3,
-			agitatorRadius: 0.8,
-		},
-	);
-
-	await render.load();
-
-	render.startRender();
-</script>
+<div id="landing-render">
+	<LandingRenderLoader />
+	<LandingRenderCanvas />
+</div>
 
 <style>
-	canvas#landing-render {
+	div#landing-render {
 		width: 100%;
 		height: 100%;
 		position: absolute;

@@ -1,0 +1,47 @@
+<canvas id="landing-render__canvas" data-loading></canvas>
+
+<script>
+	import LandingRender from "@src/lib/three/renders/LandingRender";
+	import { dispatch, register } from "@src/events/global/load/landing-render";
+
+	const canvas = document.querySelector(
+		"canvas#landing-render__canvas",
+	) as HTMLCanvasElement;
+
+	const render = new LandingRender(canvas, {
+		sphereCount: 300,
+		sphereRadius: 0.05,
+		sphereMass: 10,
+		sphereDamping: 0.3,
+		agitatorRadius: 0.8,
+	});
+
+	await render.load();
+
+	render.startRender();
+
+	const onComplete = () => {
+		setTimeout(() => {
+			canvas.removeAttribute("data-loading");
+		}, 1000);
+	};
+
+	register("complete", onComplete);
+	dispatch("complete");
+</script>
+
+<style>
+	canvas#landing-render__canvas {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		opacity: 1;
+		transition: 1s ease-out;
+		visibility: visible;
+
+		&[data-loading] {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+</style>
