@@ -113,6 +113,7 @@ export default class NavMenuShutterRenderer {
 		this.initProgram();
 		this.initAttributes();
 		this.initUniforms();
+		this.resize();
 	}
 
 	private initOptions() {

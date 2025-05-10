@@ -1,0 +1,53 @@
+---
+import LandingRenderLoaderIcon from "./LandingRenderLoaderIcon.astro";
+---
+
+<div id="landing-render__loader" data-loading>
+	<LandingRenderLoaderIcon />
+	<p>Spinning up the Sim...</p>
+</div>
+
+<script>
+	import { register } from "@src/events/global/load/landing-render";
+
+	document.addEventListener("DOMContentLoaded", init);
+	document.addEventListener("astro:page-load", init);
+
+	async function init() {
+		const $loader = document.querySelector("div#landing-render__loader")!;
+
+		const close = () => {
+			setTimeout(() => {
+				$loader.removeAttribute("data-loading");
+			}, 1000);
+		};
+
+		register("complete", close);
+	}
+</script>
+
+<style>
+	div#landing-render__loader {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 2em;
+
+		font-size: 0.75em;
+		font-family: Michroma, Helvetica;
+		color: #dfd;
+
+		opacity: 0;
+		transition: 1s ease-in;
+
+		&[data-loading] {
+			opacity: 1;
+		}
+	}
+</style>

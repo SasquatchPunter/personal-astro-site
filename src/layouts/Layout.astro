@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import Body from "@src/layouts/Body.astro";
 import Html from "@src/layouts/Html.astro";
+import SetViewportHeight from "@src/components/scripts/SetViewportHeight.astro";
 
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
@@ -23,8 +24,8 @@ const main_title = settingsData?.main_title || "Main Title";
 const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 ---
 
-<Html
-	><head>
+<Html>
+	<head>
 		<title>{title}</title>
 
 		<!-- Meta Tags -->
@@ -39,13 +40,16 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<!-- Font Providers -->
 		<DosisProvider />
 		<IcebergProvider />
-		<MichromaProvider />
+		<MichromaProvider preload />
 		<BoldonseProvider />
 		<Jersey15Provider />
 
 		<!-- Client Scripts -->
 		<ClientRouter fallback="swap" />
+		<SetViewportHeight />
 	</head>
 
-	<Body><slot /></Body></Html
->
+	<Body>
+		<slot />
+	</Body>
+</Html>
