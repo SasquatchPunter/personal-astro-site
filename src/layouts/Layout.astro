@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import Body from "@src/layouts/Body.astro";
 import Html from "@src/layouts/Html.astro";
+import SetViewportHeight from "@src/components/scripts/SetViewportHeight.astro";
 
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
@@ -45,6 +46,7 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 
 		<!-- Client Scripts -->
 		<ClientRouter fallback="swap" />
+		<SetViewportHeight />
 	</head>
 
 	<Body>

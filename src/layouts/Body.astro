@@ -2,9 +2,12 @@
 
 <style is:global>
 	body {
-		color: theme(colors.base.dark.text.1);
 		width: 100%;
-		min-height: 100vh;
+		min-height: 100dvh;
+		min-height: var(--vh, 100vh);
+
+		color: theme(colors.base.dark.text.1);
+
 		overscroll-behavior: none;
 		overflow-x: hidden;
 	}
