@@ -4,34 +4,47 @@
 	import LandingRender from "@src/lib/three/renders/LandingRender";
 	import { dispatch, register } from "@src/events/global/load/landing-render";
 
-	document.addEventListener("DOMContentLoaded", init);
+	var renderer: LandingRender | null;
+
 	document.addEventListener("astro:page-load", init);
 
-	async function init() {
+	async function dispose() {
+		if (renderer) {
+			renderer.dispose();
+			renderer = null;
+		}
+		document.removeEventListener("astro:after-preparation", dispose);
+	}
+
+	async function init(ev: Event) {
 		const canvas = document.querySelector(
 			"canvas#landing-render__canvas",
-		) as HTMLCanvasElement;
+		) as HTMLCanvasElement | null;
 
-		const render = new LandingRender(canvas, {
-			sphereCount: 300,
-			sphereRadius: 0.05,
-			sphereMass: 10,
-			sphereDamping: 0.3,
-			agitatorRadius: 0.8,
-		});
+		if (canvas !== null) {
+			renderer = new LandingRender(canvas, {
+				sphereCount: 300,
+				sphereRadius: 0.05,
+				sphereMass: 10,
+				sphereDamping: 0.3,
+				agitatorRadius: 0.8,
+			});
 
-		await render.load();
+			await renderer.load();
 
-		render.startRender();
+			const onComplete = () => {
+				setTimeout(() => {
+					canvas.removeAttribute("data-loading");
+				}, 1000);
+			};
 
-		const onComplete = () => {
-			setTimeout(() => {
-				canvas.removeAttribute("data-loading");
-			}, 1000);
-		};
+			register("complete", onComplete);
+			dispatch("complete");
 
-		register("complete", onComplete);
-		dispatch("complete");
+			renderer.startRender();
+
+			document.addEventListener("astro:after-preparation", dispose);
+		}
 	}
 </script>
 
