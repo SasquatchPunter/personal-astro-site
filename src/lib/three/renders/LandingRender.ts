@@ -14,6 +14,11 @@ import {
 	Vector3,
 	Quaternion,
 	MeshBasicMaterial,
+	Object3D,
+	Material,
+	BufferGeometry,
+	Texture,
+	Light,
 } from "three";
 import { World, Body, Sphere, Vec3, BODY_TYPES } from "cannon-es";
 import MouseIntersector from "@src/lib/three/helpers/MouseIntersector";
@@ -41,6 +46,14 @@ type Simulation = {
 	};
 };
 
+type Resources = {
+	geometries: Record<string, BufferGeometry>;
+	materials: Record<string, Material>;
+	textures: Record<string, Texture>;
+	meshes: Record<string, InstancedMesh>;
+	lights: Record<string, Light>;
+};
+
 export default class LandingRender {
 	private options: LandingRenderOptions;
 
@@ -52,6 +65,15 @@ export default class LandingRender {
 	private animations: Array<FrameRequestCallback>;
 	private cursor: Vector3;
 	private intersector: MouseIntersector;
+
+	// Track all resources for proper disposal
+	private resources: Resources = {
+		geometries: {},
+		materials: {},
+		textures: {},
+		meshes: {},
+		lights: {},
+	};
 
 	public constructor(
 		canvas: HTMLCanvasElement,
@@ -151,6 +173,13 @@ export default class LandingRender {
 		window.addEventListener("mouseup", this.resetCursor);
 	}
 
+	private cleanupListeners() {
+		window.removeEventListener("resize", this.onResize);
+		window.removeEventListener("mouseout", this.resetCursor);
+		window.removeEventListener("touchend", this.resetCursor);
+		window.removeEventListener("mouseup", this.resetCursor);
+	}
+
 	private resetCursor() {
 		this.cursor.set(0, 0, 0);
 	}
@@ -159,17 +188,17 @@ export default class LandingRender {
 	 * Inits animations for the simulation and scene render. Call this after loading is complete.
 	 */
 	private initAnimations() {
+		if (!this.simulation) return;
+
 		{
 			/* Setup animation to step the spheres simulation and update their rendered positions. */
 			const {
 				world,
 				bodies: { spheres, agitator },
-			} = this.simulation!;
+			} = this.simulation;
 			const { sphereCount } = this.options;
 
-			const spheresMesh = this.scene.getObjectByName(
-				"meshes.spheres",
-			) as InstancedMesh;
+			const spheresMesh = this.resources.meshes["spheres"];
 
 			const matrix = new Matrix4();
 			const position = new Vector3();
@@ -208,49 +237,51 @@ export default class LandingRender {
 	public async load() {
 		const { sphereCount: count, sphereRadius: radius } = this.options;
 
-		const geometries = {
-			sphere: new SphereGeometry(radius, 12, 6),
-			core: new SphereGeometry(0.3),
-		};
-		const textures = {
-			envMap: await new TextureLoader().loadAsync(
-				"textures/envmap1-optimized.jpg",
-			),
-		};
-		const materials = {
-			sphere: new MeshStandardMaterial({
-				envMap: textures.envMap,
-				envMapIntensity: 0.2,
-				roughness: 0.2,
-				metalness: 1,
-			}),
-			core: new MeshBasicMaterial({ color: 0xeeffee }),
-		};
-		const meshes = {
-			spheres: new InstancedMesh(
-				geometries.sphere,
-				materials.sphere,
-				count,
-			),
-		};
-		const lights = {
-			ambient: new AmbientLight(0xd0f0d0, 5),
-			point: new PointLight(0xa0ffd0, 10, 0, 1),
-		};
+		this.resources.geometries["sphere"] = new SphereGeometry(radius, 12, 6);
+		this.resources.geometries["core"] = new SphereGeometry(0.3);
 
-		meshes.spheres.name = "meshes.spheres";
+		const envMap = await new TextureLoader().loadAsync(
+			"textures/envmap1-optimized.jpg",
+		);
+		envMap.mapping = EquirectangularReflectionMapping;
+		envMap.flipY = false;
+		this.resources.textures["envMap"] = envMap;
 
-		textures.envMap.mapping = EquirectangularReflectionMapping;
-		textures.envMap.flipY = false;
+		this.resources.materials["sphere"] = new MeshStandardMaterial({
+			envMap: this.resources.textures["envMap"],
+			envMapIntensity: 0.2,
+			roughness: 0.2,
+			metalness: 1,
+		});
+		this.resources.materials["core"] = new MeshBasicMaterial({
+			color: 0xeeffee,
+		});
 
-		meshes.spheres.castShadow = true;
-		meshes.spheres.receiveShadow = true;
+		// Create and store meshes
+		const spheresMesh = new InstancedMesh(
+			this.resources.geometries["sphere"],
+			this.resources.materials["sphere"],
+			count,
+		);
+		spheresMesh.name = "meshes.spheres";
+		spheresMesh.castShadow = true;
+		spheresMesh.receiveShadow = true;
+		this.resources.meshes["spheres"] = spheresMesh;
 
-		lights.point.position.set(-0.5, 1, 2);
-		lights.point.castShadow = true;
+		// Create and store lights
+		this.resources.lights["ambient"] = new AmbientLight(0xd0f0d0, 5);
 
-		this.scene.add(lights.point, lights.ambient /*lights.fire*/);
-		this.scene.add(meshes.spheres /*meshes.core*/);
+		const pointLight = new PointLight(0xa0ffd0, 10, 0, 1);
+		pointLight.position.set(-0.5, 1, 2);
+		pointLight.castShadow = true;
+		this.resources.lights["point"] = pointLight;
+
+		// Add to scene
+		this.scene.add(
+			this.resources.lights["point"],
+			this.resources.lights["ambient"],
+		);
+		this.scene.add(this.resources.meshes["spheres"]);
 
 		this.initAnimations();
 	}
@@ -273,9 +304,78 @@ export default class LandingRender {
 		this.renderer.setAnimationLoop(null);
 	}
 
-	// Dispose of render resources.
+	// Part of the render cleanup. Disposes asset resources, geometries, textures, etc.
+	private disposeResources() {
+		Object.values(this.resources.geometries).forEach((geometry) => {
+			geometry.dispose();
+		});
+
+		Object.values(this.resources.materials).forEach((material) => {
+			if (material instanceof MeshStandardMaterial) {
+				if (material.map) material.map.dispose();
+				if (material.lightMap) material.lightMap.dispose();
+				if (material.aoMap) material.aoMap.dispose();
+				if (material.emissiveMap) material.emissiveMap.dispose();
+				if (material.bumpMap) material.bumpMap.dispose();
+				if (material.normalMap) material.normalMap.dispose();
+				if (material.displacementMap)
+					material.displacementMap.dispose();
+				if (material.roughnessMap) material.roughnessMap.dispose();
+				if (material.metalnessMap) material.metalnessMap.dispose();
+				if (material.alphaMap) material.alphaMap.dispose();
+				if (material.envMap) material.envMap.dispose();
+			}
+			material.dispose();
+		});
+
+		Object.values(this.resources.textures).forEach((texture) => {
+			texture.dispose();
+		});
+
+		this.resources = {
+			geometries: {},
+			materials: {},
+			textures: {},
+			meshes: {},
+			lights: {},
+		};
+	}
+
+	private disposeSimulation() {
+		if (this.simulation !== null) {
+			this.simulation.bodies.spheres.forEach((body) =>
+				this.simulation!.world.removeBody(body),
+			);
+			this.simulation.world.removeBody(this.simulation.bodies.agitator);
+			this.simulation.bodies.spheres = [];
+			this.simulation = null;
+		}
+	}
+
+	/**
+	 * Disposes of all resources associated with this render.
+	 */
 	public dispose() {
+		this.stopRender();
+		this.cleanupListeners();
+		this.intersector.dispose();
+		this.animations = [];
+		this.disposeResources();
+		this.clearScene(this.scene);
 		this.renderer.dispose();
+		this.renderer.forceContextLoss();
+		this.disposeSimulation();
+	}
+
+	private clearScene(obj: Object3D) {
+		while (obj.children.length > 0) {
+			this.clearScene(obj.children[0]);
+			obj.remove(obj.children[0]);
+		}
+
+		if (obj instanceof InstancedMesh) {
+			obj.dispose();
+		}
 	}
 
 	private onResize() {
