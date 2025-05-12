@@ -241,6 +241,7 @@ export default class LandingRender {
 		meshes.spheres.name = "meshes.spheres";
 
 		textures.envMap.mapping = EquirectangularReflectionMapping;
+		textures.envMap.flipY = false;
 
 		meshes.spheres.castShadow = true;
 		meshes.spheres.receiveShadow = true;
