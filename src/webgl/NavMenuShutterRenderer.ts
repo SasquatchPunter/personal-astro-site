@@ -31,9 +31,9 @@ varying vec2 vPos;
 varying vec2 vUv;
 
 void main() {
-    float minRadius = -1.0 + uOpenState * 2.0;
-    float maxRadius = 0.0 + uOpenState;
-    float radius = mix(minRadius, maxRadius, vUv.x); // 
+    float minRadius = -1.0 + (1.0 - uOpenState) * 2.0;
+    float maxRadius = 0.0 + (1.0 - uOpenState);
+    float radius = mix(minRadius, maxRadius, 1.0 - vUv.x); // 
     float vertical = uVerticalCells; // number of dots vertically
     float cellSize = uResolution.y / vertical;
 
@@ -49,7 +49,7 @@ void main() {
 
     vec2 uv = mod(pixelCoords, cellSize);
 
-    float circle = step(distance(localOrigin, uv), radius * cellSize);
+    float circle = 1.0 - step(distance(localOrigin, uv), radius * cellSize);
 
     vec4 circleColor = vec4(0.04, 0.04, 0.04, 1.0);
 
