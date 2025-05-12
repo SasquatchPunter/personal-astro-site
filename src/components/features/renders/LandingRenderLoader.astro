@@ -8,21 +8,28 @@ import LandingRenderLoaderIcon from "./LandingRenderLoaderIcon.astro";
 </div>
 
 <script>
-	import { register } from "@src/events/global/load/landing-render";
+	import {
+		deregister,
+		register,
+	} from "@src/events/global/load/landing-render";
 
-	document.addEventListener("DOMContentLoaded", init);
 	document.addEventListener("astro:page-load", init);
 
 	async function init() {
-		const $loader = document.querySelector("div#landing-render__loader")!;
+		const $loader = document.querySelector(
+			"div#landing-render__loader",
+		) as HTMLDivElement | null;
 
-		const close = () => {
-			setTimeout(() => {
-				$loader.removeAttribute("data-loading");
-			}, 1000);
-		};
+		if ($loader !== null) {
+			const close = () => {
+				setTimeout(() => {
+					$loader.removeAttribute("data-loading");
+				}, 1000);
+			};
 
-		register("complete", close);
+			deregister("complete", close);
+			register("complete", close);
+		}
 	}
 </script>
 
