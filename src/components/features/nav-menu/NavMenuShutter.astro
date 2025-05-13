@@ -4,14 +4,23 @@
 	import { register } from "@src/events/global/nav-menu";
 	import NavMenuShutterRenderer from "@src/webgl/NavMenuShutterRenderer";
 
-	const renderer = new NavMenuShutterRenderer(
-		document.querySelector("canvas#nav-menu__shutter")!,
-		{ verticalCells: 40 },
-	);
+	let renderer: NavMenuShutterRenderer | null = null;
 
-	register("open", renderer.open);
-	register("close", renderer.close);
-	window.addEventListener("resize", renderer.resize);
+	document.addEventListener("DOMContentLoaded", init);
+	document.addEventListener("astro:page-load", init);
+
+	async function init() {
+		if (!renderer) {
+			renderer = new NavMenuShutterRenderer(
+				document.querySelector("canvas#nav-menu__shutter")!,
+				{ verticalCells: 40 },
+			);
+
+			register("open", renderer.open);
+			register("close", renderer.close);
+			window.addEventListener("resize", renderer.resize);
+		}
+	}
 </script>
 
 <style>
