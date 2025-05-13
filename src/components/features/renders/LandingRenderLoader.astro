@@ -52,9 +52,11 @@ import LandingRenderLoaderIcon from "./LandingRenderLoaderIcon.astro";
 
 		opacity: 0;
 		transition: 1s ease-in;
+		pointer-events: none;
 
 		&[data-loading] {
 			opacity: 1;
+			pointer-events: all;
 		}
 	}
 </style>
