@@ -1,0 +1,13 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
+import ProgressNotification from "@src/components/ProgressNotification.astro";
+
+const pageTitle = "Resources";
+const metaDescription = "Resources I've found in";
+---
+
+<Layout pageTitle={pageTitle} metaDescription={metaDescription}>
+	<NavMenu />
+	<ProgressNotification />
+</Layout>
