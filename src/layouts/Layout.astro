@@ -14,9 +14,12 @@ import { getSettings } from "lib/sanity/fetch";
 
 export interface Props {
 	pageTitle?: string;
+	metaDescription?: string;
+	metaKeywords?: string[];
+	metaAuthor?: string;
 }
 
-const { pageTitle } = Astro.props;
+const { pageTitle, metaDescription, metaKeywords, metaAuthor } = Astro.props;
 
 const settingsData = await getSettings();
 const main_title = settingsData?.main_title || "Main Title";
@@ -28,11 +31,24 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 	<head>
 		<title>{title}</title>
 
-		<!-- Meta Tags -->
+		<!-- Shared Meta Tags -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#090909" />
+		<meta name="theme-color" content="#000000" />
+
+		<!-- Generated Meta Tags -->
+		{
+			metaDescription ? (
+				<meta name="description" content={metaDescription} />
+			) : null
+		}
+		{
+			metaKeywords ? (
+				<meta name="keywords" content={metaKeywords.join(", ")} />
+			) : null
+		}
+		{metaAuthor ? <meta name="author" content={metaAuthor} /> : null}
 
 		<!-- Links -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
