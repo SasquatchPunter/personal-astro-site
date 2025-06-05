@@ -2,9 +2,13 @@
 import Layout from "@src/layouts/Layout.astro";
 import ProgressNotification from "@src/components/ProgressNotification.astro";
 import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
+
+const pageTitle = "Demos";
+const metaDescription =
+	"Some cool demo projects I've either made or found during my career.";
 ---
 
-<Layout pageTitle="My Writings">
+<Layout pageTitle={pageTitle} metaDescription={metaDescription}>
 	<NavMenu />
 	<ProgressNotification />
 </Layout>
