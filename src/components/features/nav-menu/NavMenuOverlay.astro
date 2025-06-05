@@ -1,8 +1,13 @@
+---
+import MichromaFont from "@src/components/fonts/MichromaFont.astro";
+---
+
 <nav id="nav-menu" transition:persist="nav-menu">
 	<ul>
-		<li><a href="/">Home</a></li>
-		<li><a href="/writings">Writings</a></li>
-		<li><a href="/work">Work</a></li>
+		<li><a href="/"><MichromaFont>Home</MichromaFont></a></li>
+		<li><a href="/blog"><MichromaFont>Blog</MichromaFont></a></li>
+		<li><a href="/demos"><MichromaFont>Demos</MichromaFont></a></li>
+		<li><a href="/resources"><MichromaFont>Resources</MichromaFont></a></li>
 	</ul>
 </nav>
 
@@ -20,7 +25,6 @@
 
 <style>
 	nav#nav-menu {
-		font-family: Michroma;
 		position: fixed;
 		left: 0;
 		right: 0;

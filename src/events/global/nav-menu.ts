@@ -1,6 +1,8 @@
 const NavMenuEvents = {
 	open: new CustomEvent("global:nav-menu:open"),
 	close: new CustomEvent("global:nav-menu:close"),
+	disable: new CustomEvent("global:nav-menu:disable"),
+	enable: new CustomEvent("global:nav-menu:enable"),
 };
 
 export function dispatch(type: keyof typeof NavMenuEvents) {
