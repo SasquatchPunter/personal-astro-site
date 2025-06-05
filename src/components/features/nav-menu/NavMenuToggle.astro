@@ -1,27 +1,45 @@
 ---
 import NavMenuIcon from "./NavMenuIcon.astro";
+
+type Props = {
+	/** Disables the toggle. Enabling it can be done via the nav-menu event dispatcher. */
+	disabled?: boolean;
+};
+
+const { disabled } = Astro.props;
 ---
 
-<button id="nav-menu__toggle" transition:persist="nav-menu__toggle" disabled>
+<button
+	id="nav-menu__toggle"
+	transition:persist="nav-menu__toggle"
+	disabled={disabled}>
 	<NavMenuIcon />
 </button>
 
 <script>
-	import { dispatch } from "@src/events/global/nav-menu";
+	import { dispatch, register } from "@src/events/global/nav-menu";
 
-	const $nav = document.querySelector("nav#nav-menu")!;
-	const $button = document.querySelector("button#nav-menu__toggle")!;
+	const $menu = document.querySelector("#nav-menu")!;
+	const $toggle = document.querySelector("#nav-menu__toggle")!;
 
-	$button.addEventListener("click", () =>
-		dispatch($nav.hasAttribute("data-open") ? "close" : "open"),
-	);
+	const click = () => {
+		dispatch($menu.hasAttribute("data-open") ? "close" : "open");
+	};
+	const enable = () => {
+		$toggle.removeAttribute("disabled");
+	};
+	const disable = () => {
+		$toggle.setAttribute("disabled", "true");
+	};
 
-	$button.removeAttribute("disabled");
+	$toggle.addEventListener("click", click);
+	register("enable", enable);
+	register("disable", disable);
 </script>
 
 <style>
 	button#nav-menu__toggle {
-		position: absolute;
+		position: fixed;
 		width: 2em;
 		height: 2em;
 		top: 0;
@@ -31,7 +49,7 @@ import NavMenuIcon from "./NavMenuIcon.astro";
 		transition: 0.5s ease-in-out;
 
 		&[disabled] {
-			opacity: 0.2;
+			opacity: 0;
 		}
 	}
 </style>
