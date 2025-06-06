@@ -1,8 +1,11 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import Body from "@src/layouts/Body.astro";
 import Html from "@src/layouts/Html.astro";
-import SetViewportHeight from "@src/components/scripts/SetViewportHeight.astro";
+import Title from "@src/layouts/Title.astro";
+import SharedMetaTags from "@src/layouts/SharedMetaTags.astro";
+import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
+import SharedLinks from "@src/layouts/SharedLinks.astro";
+import SharedScripts from "@src/layouts/SharedScripts.astro";
 
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
@@ -10,48 +13,19 @@ import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 import Jersey15Provider from "@src/components/fonts/Jersey15Provider.astro";
 
-import { getSettings } from "lib/sanity/fetch";
-
-export interface Props {
+type Props = {
 	pageTitle?: string;
 	metaDescription?: string;
 	metaKeywords?: string[];
 	metaAuthor?: string;
-}
+};
 
 const { pageTitle, metaDescription, metaKeywords, metaAuthor } = Astro.props;
-
-const settingsData = await getSettings();
-const main_title = settingsData?.main_title || "Main Title";
-
-const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 ---
 
 <Html>
 	<head>
-		<title>{title}</title>
-
-		<!-- Shared Meta Tags -->
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#000000" />
-
-		<!-- Generated Meta Tags -->
-		{
-			metaDescription ? (
-				<meta name="description" content={metaDescription} />
-			) : null
-		}
-		{
-			metaKeywords ? (
-				<meta name="keywords" content={metaKeywords.join(", ")} />
-			) : null
-		}
-		{metaAuthor ? <meta name="author" content={metaAuthor} /> : null}
-
-		<!-- Links -->
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<Title subtitle={pageTitle} />
 
 		<!-- Font Providers -->
 		<DosisProvider />
@@ -60,9 +34,14 @@ const title = `${main_title}${pageTitle ? ` | ${pageTitle}` : ""}`;
 		<BoldonseProvider />
 		<Jersey15Provider />
 
-		<!-- Client Scripts -->
-		<ClientRouter fallback="swap" />
-		<SetViewportHeight />
+		<SharedMetaTags />
+		<GeneratedMetaTags
+			metaDescription={metaDescription}
+			metaKeywords={metaKeywords}
+			metaAuthor={metaAuthor}
+		/>
+		<SharedLinks />
+		<SharedScripts />
 	</head>
 
 	<Body>

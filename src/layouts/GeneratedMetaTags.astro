@@ -1,0 +1,15 @@
+---
+import OptionalMetaTag from "@src/layouts/OptionalMetaTag.astro";
+
+type Props = {
+	metaDescription?: string;
+	metaKeywords?: string[];
+	metaAuthor?: string;
+};
+
+const { metaDescription, metaKeywords, metaAuthor } = Astro.props;
+---
+
+<OptionalMetaTag name="description" content={metaDescription} />
+<OptionalMetaTag name="keywords" content={metaKeywords?.join(",")} />
+<OptionalMetaTag name="author" content={metaAuthor} />
