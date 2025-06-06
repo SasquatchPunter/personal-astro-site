@@ -1,0 +1,8 @@
+---
+type Props = (
+	| { name: string; "http-equiv"?: never }
+	| { name?: never; "http-equiv": string }
+) & { content?: string };
+---
+
+{Astro.props.content ? <meta {...Astro.props} /> : null}

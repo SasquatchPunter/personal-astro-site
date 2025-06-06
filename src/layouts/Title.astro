@@ -1,0 +1,14 @@
+---
+import { getSettings } from "lib/sanity/fetch";
+
+type Props = {
+	subtitle?: string;
+};
+
+const { subtitle } = Astro.props;
+
+let title = (await getSettings())?.main_title || "Site Title";
+title += subtitle ? ` | ${subtitle}` : "";
+---
+
+<title>{title}</title>

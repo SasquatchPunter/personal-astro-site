@@ -1,13 +1,11 @@
-<script is:inline>
+<script>
 	function set() {
-		const h = window.innerHeight;
+		const h = document.documentElement.clientHeight;
 		document.documentElement.style.setProperty("--vh", `${h}px`);
+		console.log(h);
 	}
 
-	set();
-
-	document.addEventListener("astro:page-load", set);
-	document.addEventListener("DOMContentLoaded", set);
 	window.addEventListener("resize", set);
 	window.addEventListener("orientationchange", set);
+	document.addEventListener("astro:page-load", set);
 </script>
