@@ -1,7 +1,6 @@
 ---
-import Body from "@src/layouts/Body.astro";
-import Html from "@src/layouts/Html.astro";
-import Title from "@src/layouts/Title.astro";
+import type { BasicMetadata, HttpEquivMetadata } from "@src/types";
+
 import SharedMetaTags from "@src/layouts/SharedMetaTags.astro";
 import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
 import SharedLinks from "@src/layouts/SharedLinks.astro";
@@ -12,20 +11,25 @@ import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
 import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 import Jersey15Provider from "@src/components/fonts/Jersey15Provider.astro";
+import { getSettings } from "lib/sanity/fetch";
 
 type Props = {
-	pageTitle?: string;
-	metaDescription?: string;
-	metaKeywords?: string[];
-	metaAuthor?: string;
+	title?: string;
+	subtitle?: string;
+	metadata?: BasicMetadata & HttpEquivMetadata;
 };
 
-const { pageTitle, metaDescription, metaKeywords, metaAuthor } = Astro.props;
+const { title, subtitle, metadata } = Astro.props;
+const settings = await getSettings();
+
+let pageTitle = settings?.main_title || "<title>";
+pageTitle += title ? ` | ${title}` : "";
+pageTitle += subtitle ? ` | ${subtitle}` : "";
 ---
 
-<Html>
+<html>
 	<head>
-		<Title subtitle={pageTitle} />
+		<title>{pageTitle}</title>
 
 		<!-- Font Providers -->
 		<DosisProvider />
@@ -35,16 +39,39 @@ const { pageTitle, metaDescription, metaKeywords, metaAuthor } = Astro.props;
 		<Jersey15Provider />
 
 		<SharedMetaTags />
-		<GeneratedMetaTags
-			metaDescription={metaDescription}
-			metaKeywords={metaKeywords}
-			metaAuthor={metaAuthor}
-		/>
 		<SharedLinks />
 		<SharedScripts />
+
+		<GeneratedMetaTags
+			abstract={metadata?.abstract}
+			author={metadata?.author}
+			description={metadata?.description}
+			keywords={metadata?.keywords}
+			robots={metadata?.robots}
+			contentType={metadata?.contentType}
+			refresh={metadata?.refresh}
+		/>
 	</head>
 
-	<Body>
+	<body>
 		<slot />
-	</Body>
-</Html>
+	</body></html
+>
+
+<style is:global>
+	html {
+		background: #080808;
+		background-size: cover;
+		background-attachment: fixed;
+	}
+
+	body {
+		width: 100%;
+		min-height: 100dvh;
+		min-height: var(--vh, 100vh);
+
+		color: theme(colors.base.dark.text.default);
+
+		overflow-x: hidden;
+	}
+</style>
