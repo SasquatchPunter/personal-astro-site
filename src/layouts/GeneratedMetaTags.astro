@@ -1,15 +1,24 @@
 ---
-import OptionalMetaTag from "@src/layouts/OptionalMetaTag.astro";
+import type { HttpEquivMetadata, BasicMetadata } from "@src/types";
 
-type Props = {
-	metaDescription?: string;
-	metaKeywords?: string[];
-	metaAuthor?: string;
-};
+type Props = HttpEquivMetadata & BasicMetadata;
 
-const { metaDescription, metaKeywords, metaAuthor } = Astro.props;
+const {
+	abstract,
+	author,
+	description,
+	keywords,
+	robots,
+	contentType,
+	refresh,
+} = Astro.props;
 ---
 
-<OptionalMetaTag name="description" content={metaDescription} />
-<OptionalMetaTag name="keywords" content={metaKeywords?.join(",")} />
-<OptionalMetaTag name="author" content={metaAuthor} />
+{abstract ? <meta name="abstract" content={abstract} /> : null}
+{author ? <meta name="author" content={author} /> : null}
+{description ? <meta name="description" content={description} /> : null}
+{keywords ? <meta name="keywords" content={keywords} /> : null}
+{robots ? <meta name="robots" content={robots} /> : null}
+
+{contentType ? <meta http-equiv="content-type" content={contentType} /> : null}
+{refresh ? <meta http-equiv="refresh" content={refresh} /> : null}
