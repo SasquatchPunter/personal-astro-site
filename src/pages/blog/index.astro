@@ -1,13 +1,17 @@
 ---
+import type { HttpEquivMetadata, BasicMetadata } from "@src/types";
+
 import Layout from "@src/layouts/Layout.astro";
 import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
 import ProgressNotification from "@src/components/ProgressNotification.astro";
 
-const pageTitle = "Blog";
-const metaDescription = "My mind dump.";
+const title = "Blog";
+const metadata: HttpEquivMetadata & BasicMetadata = {
+	description: "My mind dump",
+};
 ---
 
-<Layout pageTitle={pageTitle} metaDescription={metaDescription}>
+<Layout title={title} metadata={metadata}>
 	<NavMenu />
 	<ProgressNotification />
 </Layout>

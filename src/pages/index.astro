@@ -1,13 +1,22 @@
 ---
+import type { BasicMetadata, HttpEquivMetadata } from "@src/types";
+
 import Layout from "@src/layouts/Layout.astro";
 import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
-import LandingRender from "@src/components/features/renders/LandingRender.astro";
+
+const title = "Welcome";
+const metadata: BasicMetadata & HttpEquivMetadata = {
+	description:
+		"Fullstack developer living in the great Canadian Rockies. I make ",
+};
 ---
 
-<Layout>
+<Layout title={title} metadata={metadata}>
 	<NavMenu />
 	<header>
-		<LandingRender />
+		<div>
+			<h1></h1>
+		</div>
 	</header>
 </Layout>
 
@@ -15,14 +24,28 @@ import LandingRender from "@src/components/features/renders/LandingRender.astro"
 	header {
 		position: relative;
 		width: 100%;
-		height: 100dvh;
 		height: var(--vh, 100vh);
+		height: 100dvh;
 
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: start;
+		color: theme(colors.base.dark.text.default);
 
-		color: #3f4a3f;
+		overflow-x: hidden;
+		overscroll-behavior: none;
+
+		& > div {
+			width: 100%;
+			height: 100%;
+			padding: 1em;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: left;
+			font-size: 2em;
+
+			& > h1 {
+				text-align: center;
+				width: fit-content;
+			}
+		}
 	}
 </style>
