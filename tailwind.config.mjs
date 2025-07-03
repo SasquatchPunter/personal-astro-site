@@ -17,12 +17,9 @@ export default {
 						1: "#090909",
 						2: "#2a392a",
 						text: {
-							1: "#fff",
+							default: "#dfd",
 							link: "#9a9",
 							code: "#dfd",
-							hightlight: {
-								1: "#f0f",
-							},
 						},
 					},
 				},
