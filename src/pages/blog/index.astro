@@ -1,12 +1,12 @@
 ---
-import type { HttpEquivMetadata, BasicMetadata } from "@src/types";
+import type { Metadata } from "@src/types";
 
 import Layout from "@src/layouts/Layout.astro";
 import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
 import ProgressNotification from "@src/components/ProgressNotification.astro";
 
 const title = "Blog";
-const metadata: HttpEquivMetadata & BasicMetadata = {
+const metadata: Metadata = {
 	description: "My mind dump",
 };
 ---

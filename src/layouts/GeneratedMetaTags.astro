@@ -1,7 +1,7 @@
 ---
-import type { HttpEquivMetadata, BasicMetadata } from "@src/types";
+import type { Metadata } from "@src/types";
 
-type Props = HttpEquivMetadata & BasicMetadata;
+type Props = Metadata;
 
 const {
 	abstract,
@@ -9,8 +9,8 @@ const {
 	description,
 	keywords,
 	robots,
-	contentType,
-	refresh,
+	httpContentType,
+	httpRefresh,
 } = Astro.props;
 ---
 
@@ -20,5 +20,9 @@ const {
 {keywords ? <meta name="keywords" content={keywords} /> : null}
 {robots ? <meta name="robots" content={robots} /> : null}
 
-{contentType ? <meta http-equiv="content-type" content={contentType} /> : null}
-{refresh ? <meta http-equiv="refresh" content={refresh} /> : null}
+{
+	httpContentType ? (
+		<meta http-equiv="content-type" content={httpContentType} />
+	) : null
+}
+{httpRefresh ? <meta http-equiv="refresh" content={httpRefresh} /> : null}
