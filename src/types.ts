@@ -6,7 +6,7 @@ export type Metadata = {
 	abstract?: string;
 	author?: string;
 	description?: string;
-	keywords?: string;
+	keywords?: string[];
 	robots?: string;
 	httpContentType?: string;
 	httpRefresh?: string;

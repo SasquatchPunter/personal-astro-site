@@ -17,7 +17,7 @@ const {
 {abstract ? <meta name="abstract" content={abstract} /> : null}
 {author ? <meta name="author" content={author} /> : null}
 {description ? <meta name="description" content={description} /> : null}
-{keywords ? <meta name="keywords" content={keywords} /> : null}
+{keywords ? <meta name="keywords" content={keywords?.join(",")} /> : null}
 {robots ? <meta name="robots" content={robots} /> : null}
 
 {
