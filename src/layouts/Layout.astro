@@ -1,5 +1,5 @@
 ---
-import type { BasicMetadata, HttpEquivMetadata } from "@src/types";
+import type { Metadata } from "@src/types";
 
 import SharedMetaTags from "@src/layouts/SharedMetaTags.astro";
 import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
@@ -16,7 +16,7 @@ import { getSettings } from "lib/sanity/fetch";
 type Props = {
 	title?: string;
 	subtitle?: string;
-	metadata?: BasicMetadata & HttpEquivMetadata;
+	metadata?: Metadata;
 };
 
 const { title, subtitle, metadata } = Astro.props;
@@ -48,8 +48,8 @@ pageTitle += subtitle ? ` | ${subtitle}` : "";
 			description={metadata?.description}
 			keywords={metadata?.keywords}
 			robots={metadata?.robots}
-			contentType={metadata?.contentType}
-			refresh={metadata?.refresh}
+			httpContentType={metadata?.httpContentType}
+			httpRefresh={metadata?.httpRefresh}
 		/>
 	</head>
 
