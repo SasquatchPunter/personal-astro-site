@@ -24,7 +24,7 @@ import MichromaFont from "@src/components/fonts/MichromaFont.astro";
 </script>
 
 <style>
-	nav#nav-menu {
+	nav {
 		position: fixed;
 		left: 0;
 		right: 0;
@@ -38,7 +38,7 @@ import MichromaFont from "@src/components/fonts/MichromaFont.astro";
 		pointer-events: none;
 	}
 
-	nav#nav-menu[data-open] {
+	nav[data-open] {
 		pointer-events: all;
 		& ul {
 			transition-delay: 250ms;
@@ -46,7 +46,7 @@ import MichromaFont from "@src/components/fonts/MichromaFont.astro";
 		}
 	}
 
-	nav#nav-menu ul {
+	nav ul {
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
@@ -56,7 +56,7 @@ import MichromaFont from "@src/components/fonts/MichromaFont.astro";
 		clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
 	}
 
-	nav#nav-menu ul li {
+	nav ul li {
 		text-align: right;
 	}
 </style>
