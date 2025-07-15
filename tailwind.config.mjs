@@ -11,6 +11,13 @@ export default {
 				2xl: 1536px
 		*/
 		extend: {
+			fontFamily: {
+				boldonse: "Boldonse",
+				dosis: "Dosis",
+				iceberg: "Iceberg",
+				jersey15: "Jersey15",
+				michroma: "Michroma",
+			},
 			colors: {
 				base: {
 					dark: {
