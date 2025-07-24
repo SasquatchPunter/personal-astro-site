@@ -27,7 +27,7 @@ pageTitle += title ? ` | ${title}` : "";
 pageTitle += subtitle ? ` | ${subtitle}` : "";
 ---
 
-<html>
+<html class="bg-base-dark-2">
 	<head>
 		<title>{pageTitle}</title>
 
@@ -53,25 +53,8 @@ pageTitle += subtitle ? ` | ${subtitle}` : "";
 		/>
 	</head>
 
-	<body>
+	<body
+		class="w-full min-h-dvh text-base-dark-text-default overflow-x-hidden">
 		<slot />
 	</body></html
 >
-
-<style is:global>
-	html {
-		background: #080808;
-		background-size: cover;
-		background-attachment: fixed;
-	}
-
-	body {
-		width: 100%;
-		min-height: 100dvh;
-		min-height: var(--vh, 100vh);
-
-		color: theme(colors.base.dark.text.default);
-
-		overflow-x: hidden;
-	}
-</style>
