@@ -1,0 +1,21 @@
+---
+import { getSettings } from "lib/sanity/fetch";
+
+type Props = {
+	title?: string;
+	subtitle?: string;
+};
+
+const props = Astro.props;
+const settings = await getSettings();
+
+const titles: string[] = [];
+
+titles.push(settings?.main_title || "Main Title");
+props.title && titles.push(props.title);
+props.subtitle && titles.push(props.subtitle);
+
+const title = titles.join(" | ");
+---
+
+<title>{title}</title>
