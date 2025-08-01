@@ -2,20 +2,12 @@
 import { Icon as AstroIcon } from "astro-icon/components";
 
 export interface Props {
-	/** Name of the icon. Maps directly to the svg filename in the icons directory. */
 	name: string;
-	/** Sets width and height of the svg style to 100%. */
-	fillContainer?: boolean;
+	class?: string;
+	id?: string;
 }
 
-const { name, fillContainer } = Astro.props;
+const { name, class: className, id } = Astro.props;
 ---
 
-<AstroIcon name={name} class:list={[fillContainer && "fullsize"]} />
-
-<style>
-	.fullsize {
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<AstroIcon name={name} id={id} class={className} />
