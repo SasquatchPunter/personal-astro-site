@@ -1,5 +1,12 @@
 ---
 import Icon from "./Icon.astro";
+
+type Props = {
+	class?: string;
+	id?: string;
+};
+
+const { class: className, id } = Astro.props;
 ---
 
-<Icon name="codepen" />
+<Icon name="codepen" class={className} id={id} />
