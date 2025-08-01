@@ -1,6 +1,7 @@
 ---
 import type { Metadata } from "@src/types";
 
+import Title from "@src/layouts/Title.astro";
 import SharedMetaTags from "@src/layouts/SharedMetaTags.astro";
 import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
 import SharedLinks from "@src/layouts/SharedLinks.astro";
@@ -11,7 +12,6 @@ import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
 import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 import Jersey15Provider from "@src/components/fonts/Jersey15Provider.astro";
-import { getSettings } from "lib/sanity/fetch";
 
 type Props = {
 	title?: string;
@@ -20,16 +20,11 @@ type Props = {
 };
 
 const { title, subtitle, metadata } = Astro.props;
-const settings = await getSettings();
-
-let pageTitle = settings?.main_title || "<title>";
-pageTitle += title ? ` | ${title}` : "";
-pageTitle += subtitle ? ` | ${subtitle}` : "";
 ---
 
-<html>
+<html class="bg-base-dark-2">
 	<head>
-		<title>{pageTitle}</title>
+		<Title title={title} subtitle={subtitle} />
 
 		<!-- Font Providers -->
 		<DosisProvider />
@@ -53,25 +48,8 @@ pageTitle += subtitle ? ` | ${subtitle}` : "";
 		/>
 	</head>
 
-	<body>
+	<body
+		class="w-full min-h-dvh text-base-dark-text-default overflow-x-hidden">
 		<slot />
 	</body></html
 >
-
-<style is:global>
-	html {
-		background: #080808;
-		background-size: cover;
-		background-attachment: fixed;
-	}
-
-	body {
-		width: 100%;
-		min-height: 100dvh;
-		min-height: var(--vh, 100vh);
-
-		color: theme(colors.base.dark.text.default);
-
-		overflow-x: hidden;
-	}
-</style>
