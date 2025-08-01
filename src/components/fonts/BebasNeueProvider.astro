@@ -1,0 +1,27 @@
+---
+type Props = {
+	preload?: boolean;
+};
+
+const { preload } = Astro.props;
+---
+
+{
+	preload ? (
+		<link
+			rel="preload"
+			href="/fonts/BebasNeue/BebasNeue-Regular.ttf"
+			as="font"
+			type="font/ttf"
+			crossorigin
+		/>
+	) : null
+}
+
+<style is:global>
+	@font-face {
+		font-family: BebasNeue;
+		src: url("/fonts/BebasNeue/BebasNeue-Regular.ttf") format("truetype");
+		font-weight: normal;
+	}
+</style>
