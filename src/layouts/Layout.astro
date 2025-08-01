@@ -7,6 +7,7 @@ import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
 import SharedLinks from "@src/layouts/SharedLinks.astro";
 import SharedScripts from "@src/layouts/SharedScripts.astro";
 
+import BebasNeueProvider from "@src/components/fonts/BebasNeueProvider.astro";
 import DosisProvider from "@src/components/fonts/DosisProvider.astro";
 import IcebergProvider from "@src/components/fonts/IcebergProvider.astro";
 import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
@@ -32,6 +33,7 @@ const { title, subtitle, metadata } = Astro.props;
 		<MichromaProvider preload />
 		<BoldonseProvider />
 		<Jersey15Provider />
+		<BebasNeueProvider />
 
 		<SharedMetaTags />
 		<SharedLinks />
