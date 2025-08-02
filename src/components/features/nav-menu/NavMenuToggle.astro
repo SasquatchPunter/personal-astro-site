@@ -1,55 +1,44 @@
 ---
-import NavMenuIcon from "./NavMenuIcon.astro";
+import NavMenuIcon from "@src/components/icons/NavMenuIcon.astro";
 
 type Props = {
 	/** Disables the toggle. Enabling it can be done via the nav-menu event dispatcher. */
 	disabled?: boolean;
+	class?: string;
 };
 
-const { disabled } = Astro.props;
+const { disabled, class: className } = Astro.props;
 ---
 
 <button
 	id="nav-menu__toggle"
 	transition:persist="nav-menu__toggle"
+	class={className}
 	disabled={disabled}>
-	<NavMenuIcon />
+	<NavMenuIcon id="nav-menu__icon" />
 </button>
 
 <script>
-	import { dispatch, register } from "@src/events/global/nav-menu";
+	import { navMenuStore } from "@src/stores";
 
-	const $menu = document.querySelector("#nav-menu")!;
-	const $toggle = document.querySelector("#nav-menu__toggle")!;
+	const load = () => {
+		const $toggle = document.querySelector(
+			"#nav-menu__toggle",
+		) as HTMLButtonElement;
+		const $icon = document.querySelector("#nav-menu__icon") as HTMLElement;
 
-	const click = () => {
-		dispatch($menu.hasAttribute("data-open") ? "close" : "open");
-	};
-	const enable = () => {
-		$toggle.removeAttribute("disabled");
-	};
-	const disable = () => {
-		$toggle.setAttribute("disabled", "true");
+		const click = () => {
+			navMenuStore.actions.toggle();
+
+			navMenuStore.read().open === true
+				? $icon.setAttribute("data-open", "true")
+				: $icon.removeAttribute("data-open");
+		};
+
+		$toggle.addEventListener("click", click);
 	};
 
-	$toggle.addEventListener("click", click);
-	register("enable", enable);
-	register("disable", disable);
+	document.addEventListener("load", load);
+	document.addEventListener("astro:page-load", load);
+	document.addEventListener("astro:after-swap", load);
 </script>
-
-<style>
-	button#nav-menu__toggle {
-		position: fixed;
-		width: 2em;
-		height: 2em;
-		top: 0;
-		right: 0;
-		margin: 1em;
-		z-index: 999;
-		transition: 0.5s ease-in-out;
-
-		&[disabled] {
-			opacity: 0;
-		}
-	}
-</style>

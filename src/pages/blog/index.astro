@@ -2,8 +2,9 @@
 import type { Metadata } from "@src/types";
 
 import Layout from "@src/layouts/Layout.astro";
-import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
 import ProgressNotification from "@src/components/ProgressNotification.astro";
+import NavBar from "@src/components/NavBar.astro";
+import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
 
 const title = "Blog";
 const metadata: Metadata = {
@@ -12,6 +13,7 @@ const metadata: Metadata = {
 ---
 
 <Layout title={title} metadata={metadata}>
-	<NavMenu />
 	<ProgressNotification />
+	<NavMenu />
+	<NavBar />
 </Layout>

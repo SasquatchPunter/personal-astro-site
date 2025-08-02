@@ -1,6 +1,14 @@
+---
+type Props = {
+	id?: string;
+};
+
+const { id } = Astro.props;
+---
+
 <nav
-	id="nav-menu"
-	class="fixed left-0 right-0 top-0 bottom-0 flex justify-end items-center z-[999] pointer-events-none"
+	id={id}
+	class="fixed left-0 right-0 top-0 bottom-0 flex justify-end items-center"
 	transition:persist="nav-menu">
 	<ul class="font-michroma flex flex-col gap-4 m-2 z-10">
 		<li><a href="/">Home</a></li>
@@ -10,20 +18,8 @@
 	</ul>
 </nav>
 
-<script>
-	import { register } from "@src/events/nav-menu";
-
-	const $nav = document.querySelector("nav#nav-menu")!;
-
-	const open = () => $nav.setAttribute("data-open", "true");
-	const close = () => $nav.removeAttribute("data-open");
-
-	register("open", open);
-	register("close", close);
-</script>
-
 <style>
-	nav#nav-menu[data-open] {
+	nav[data-open] {
 		pointer-events: all;
 		& ul {
 			transition-delay: 250ms;
@@ -31,7 +27,7 @@
 		}
 	}
 
-	nav#nav-menu ul {
+	nav ul {
 		transition: clip-path 250ms ease-in-out;
 		clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
 	}

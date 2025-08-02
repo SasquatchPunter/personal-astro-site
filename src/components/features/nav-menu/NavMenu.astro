@@ -1,15 +1,33 @@
 ---
-import NavMenuToggle from "./NavMenuToggle.astro";
-import NavMenuOverlay from "./NavMenuOverlay.astro";
-import NavMenuShutter from "./NavMenuShutter.astro";
+import NavMenuShutter from "@src/components/features/nav-menu/NavMenuShutter.astro";
+import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.astro";
 ---
 
-<NavMenuShutter />
-<NavMenuOverlay />
-<NavMenuToggle />
+<div
+	id="nav-menu__overlay"
+	class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none">
+	<NavMenuShutter class="w-full h-full" />
+	<NavMenuOverlay id="nav-menu__overlay__menu" />
+</div>
 
 <script>
-	import { dispatch } from "@src/events/global/nav-menu";
+	import { navMenuStore } from "@src/stores";
 
-	document.addEventListener("astro:after-swap", () => dispatch("close"));
+	const load = () => {
+		const $menu = document.querySelector(
+			"#nav-menu__overlay__menu",
+		) as HTMLElement;
+
+		navMenuStore.subscribe((value, oldValue, changed) => {
+			if (changed === "open") {
+				value.open === true
+					? $menu.setAttribute("data-open", "true")
+					: $menu.removeAttribute("data-open");
+			}
+		});
+	};
+
+	document.addEventListener("load", load);
+	document.addEventListener("astro:page-load", load);
+	document.addEventListener("astro:before-swap", navMenuStore.actions.close);
 </script>

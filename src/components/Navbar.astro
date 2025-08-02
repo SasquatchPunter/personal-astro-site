@@ -1,42 +1,14 @@
 ---
-const pathname = Astro.url.pathname.replace(/\/+$/, "");
+import SiteIcon from "@src/components/icons/SiteIcon.astro";
+import NavMenuToggle from "@src/components/features/nav-menu/NavMenuToggle.astro";
 ---
 
-<nav>
-	<a href="/" class:list={[{ current: pathname === "" }]}
-		><span transition:name="nav/">Sasquatch Dev</span></a
-	>
-	<a href="/writings" class:list={[{ current: pathname === "/writings" }]}
-		><span transition:name="nav/writings">Blog</span></a
-	>
-	<a href="/work" class:list={[{ current: pathname === "/work" }]}
-		><span transition:name="nav/work">Work</span></a
-	>
-</nav>
+<header class="w-full h-16 p-4 fixed z-10 flex justify-between">
+	<a href="/">
+		<SiteIcon class="h-full fill-none stroke-base-dark-text-default" />
+	</a>
 
-<style>
-	nav {
-		font-size: 0.75rem;
-		color: white;
-		font-family: Michroma, Tahoma, sans-serif;
-		text-transform: uppercase;
-
-		position: sticky;
-		top: 0;
-		margin: 1em;
-
-		z-index: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-
-		& a {
-			height: auto;
-
-			&.current > span {
-				color: theme(colors.base.dark.text.link);
-				transform: scale(1.1) translate(0.3em, 0.3em);
-			}
-		}
-	}
-</style>
+	<NavMenuToggle
+		class="h-full aspect-square fill-none stroke-base-dark-text-default"
+	/>
+</header>
