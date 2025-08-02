@@ -1,0 +1,13 @@
+---
+type Props = {
+	class?: string;
+	id?: string;
+};
+
+const { id, class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 64 64" id={id} class={className} stroke-width="2">
+	<circle cx="32" cy="32" r="31"></circle>
+	<circle cx="32" cy="32" r="23"></circle>
+</svg>

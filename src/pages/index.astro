@@ -2,50 +2,21 @@
 import type { Metadata } from "@src/types";
 
 import Layout from "@src/layouts/Layout.astro";
+import NavBar from "@src/components/NavBar.astro";
 import NavMenu from "@src/components/features/nav-menu/NavMenu.astro";
+import RenderBackground from "@src/components/RenderBackground.astro";
 
 const title = "Welcome";
 const metadata: Metadata = {
-	description:
-		"Fullstack developer living in the great Canadian Rockies. I make ",
+	description: "Fullstack developer living in the great Canadian Rockies.",
 };
 ---
 
 <Layout title={title} metadata={metadata}>
+	<RenderBackground />
 	<NavMenu />
-	<header>
-		<div>
-			<h1></h1>
-		</div>
-	</header>
+
+	<NavBar />
+
+	<!-- <NavMenu /> -->
 </Layout>
-
-<style>
-	header {
-		position: relative;
-		width: 100%;
-		height: var(--vh, 100vh);
-		height: 100dvh;
-
-		color: theme(colors.base.dark.text.default);
-
-		overflow-x: hidden;
-		overscroll-behavior: none;
-
-		& > div {
-			width: 100%;
-			height: 100%;
-			padding: 1em;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: left;
-			font-size: 2em;
-
-			& > h1 {
-				text-align: center;
-				width: fit-content;
-			}
-		}
-	}
-</style>

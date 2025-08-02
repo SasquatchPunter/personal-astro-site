@@ -1,38 +1,42 @@
-<canvas id="nav-menu__shutter" transition:persist="nav-menu__shutter"></canvas>
+---
+type Props = {
+	class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<canvas
+	id="nav-menu__shutter"
+	transition:persist="nav-menu__shutter"
+	class={className}></canvas>
 
 <script>
-	import { register } from "@src/events/global/nav-menu";
+	import { navMenuStore } from "@src/stores";
 	import NavMenuShutterRenderer from "@src/webgl/NavMenuShutterRenderer";
 
 	let renderer: NavMenuShutterRenderer | null = null;
 
-	document.addEventListener("DOMContentLoaded", init);
-	document.addEventListener("astro:page-load", init);
+	const load = () => {
+		const $shutter = document.querySelector(
+			"#nav-menu__shutter",
+		) as HTMLCanvasElement;
 
-	async function init() {
 		if (!renderer) {
-			renderer = new NavMenuShutterRenderer(
-				document.querySelector("canvas#nav-menu__shutter")!,
-				{ verticalCells: 40 },
-			);
-
-			register("open", renderer.open);
-			register("close", renderer.close);
-			window.addEventListener("resize", renderer.resize);
+			renderer = new NavMenuShutterRenderer($shutter, {
+				verticalCells: 40,
+			});
 		}
-	}
-</script>
 
-<style>
-	canvas#nav-menu__shutter {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 999;
-		pointer-events: none;
-	}
-</style>
+		navMenuStore.subscribe((value, oldValue, changed) => {
+			if (changed === "open") {
+				value.open === true ? renderer!.open() : renderer?.close();
+			}
+		});
+
+		window.addEventListener("resize", renderer.resize);
+	};
+
+	document.addEventListener("DOMContentLoaded", load);
+	document.addEventListener("astro:page-load", load);
+</script>

@@ -1,44 +1,25 @@
 ---
-import MichromaFont from "@src/components/fonts/MichromaFont.astro";
+type Props = {
+	id?: string;
+};
+
+const { id } = Astro.props;
 ---
 
-<nav id="nav-menu" transition:persist="nav-menu">
-	<ul>
-		<li><a href="/"><MichromaFont>Home</MichromaFont></a></li>
-		<li><a href="/blog"><MichromaFont>Blog</MichromaFont></a></li>
-		<li><a href="/demos"><MichromaFont>Demos</MichromaFont></a></li>
-		<li><a href="/resources"><MichromaFont>Resources</MichromaFont></a></li>
+<nav
+	id={id}
+	class="fixed left-0 right-0 top-0 bottom-0 flex justify-end items-center"
+	transition:persist="nav-menu">
+	<ul class="font-michroma flex flex-col gap-4 m-2 z-10">
+		<li><a href="/">Home</a></li>
+		<li><a href="/blog">Blog</a></li>
+		<li><a href="/demos">Demos</a></li>
+		<li><a href="/resources">Resources</a></li>
 	</ul>
 </nav>
 
-<script>
-	import { register } from "@src/events/global/nav-menu";
-
-	const $nav = document.querySelector("nav#nav-menu")!;
-
-	const open = () => $nav.setAttribute("data-open", "true");
-	const close = () => $nav.removeAttribute("data-open");
-
-	register("open", open);
-	register("close", close);
-</script>
-
 <style>
-	nav#nav-menu {
-		position: fixed;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		display: flex;
-		justify-content: right;
-		align-items: center;
-		color: theme(colors.base.dark.text.default);
-		z-index: 999;
-		pointer-events: none;
-	}
-
-	nav#nav-menu[data-open] {
+	nav[data-open] {
 		pointer-events: all;
 		& ul {
 			transition-delay: 250ms;
@@ -46,17 +27,12 @@ import MichromaFont from "@src/components/fonts/MichromaFont.astro";
 		}
 	}
 
-	nav#nav-menu ul {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-		margin: 0.5em;
-		z-index: 10;
+	nav ul {
 		transition: clip-path 250ms ease-in-out;
 		clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
 	}
 
-	nav#nav-menu ul li {
+	nav ul li {
 		text-align: right;
 	}
 </style>
