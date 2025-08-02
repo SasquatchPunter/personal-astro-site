@@ -29,5 +29,5 @@ import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.ast
 
 	document.addEventListener("load", load);
 	document.addEventListener("astro:page-load", load);
-	document.addEventListener("astro:before-swap", navMenuStore.actions.close);
+	document.addEventListener("astro:page-load", navMenuStore.actions.close);
 </script>
