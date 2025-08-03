@@ -12,9 +12,9 @@ const { disabled, class: className } = Astro.props;
 
 <button
 	id="nav-menu__toggle"
-	transition:persist="nav-menu__toggle"
 	class={className}
-	disabled={disabled}>
+	disabled={disabled}
+	transition:persist="nav-menu__toggle">
 	<NavMenuIcon id="nav-menu__icon" />
 </button>
 
@@ -27,18 +27,20 @@ const { disabled, class: className } = Astro.props;
 		) as HTMLButtonElement;
 		const $icon = document.querySelector("#nav-menu__icon") as HTMLElement;
 
-		const click = () => {
-			navMenuStore.actions.toggle();
+		const unsubscribe = navMenuStore.subscribe(
+			(value, oldValue, changed) => {
+				if (changed === undefined || changed === "open") {
+					value.open === true
+						? $icon.setAttribute("data-open", "true")
+						: $icon.removeAttribute("data-open");
+				}
+			},
+		);
 
-			navMenuStore.read().open === true
-				? $icon.setAttribute("data-open", "true")
-				: $icon.removeAttribute("data-open");
-		};
-
-		$toggle.addEventListener("click", click);
+		$toggle.addEventListener("click", navMenuStore.actions.toggle);
+		document.addEventListener("astro:before-preparation", unsubscribe);
 	};
 
-	document.addEventListener("load", load);
+	window.addEventListener("load", load);
 	document.addEventListener("astro:page-load", load);
-	document.addEventListener("astro:after-swap", load);
 </script>
