@@ -4,10 +4,10 @@ import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.ast
 ---
 
 <div
-	id="nav-menu__overlay"
+	id="nav-menu"
 	class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none">
 	<NavMenuShutter class="w-full h-full" />
-	<NavMenuOverlay id="nav-menu__overlay__menu" />
+	<NavMenuOverlay id="nav-menu__overlay" />
 </div>
 
 <script>
@@ -15,7 +15,7 @@ import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.ast
 
 	const load = () => {
 		const $menu = document.querySelector(
-			"#nav-menu__overlay__menu",
+			"#nav-menu__overlay",
 		) as HTMLElement;
 
 		navMenuStore.subscribe((value, oldValue, changed) => {
@@ -29,5 +29,5 @@ import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.ast
 
 	document.addEventListener("load", load);
 	document.addEventListener("astro:page-load", load);
-	document.addEventListener("astro:before-swap", navMenuStore.actions.close);
+	document.addEventListener("astro:page-load", navMenuStore.actions.close);
 </script>
