@@ -1,0 +1,27 @@
+<main
+	id="main-content"
+	class="translate-x-0 data-open:-translate-x-8 duration-500"
+	transition:persist="main-content">
+	<slot />
+</main>
+
+<script>
+	import { navMenuStore } from "@src/stores";
+
+	const load = () => {
+		const $main = document.querySelector("#main-content");
+
+		const unsubscribe = navMenuStore.subscribe(
+			(value, oldValue, changed) => {
+				if (changed === undefined || changed === "open") {
+					value.open === true
+						? $main?.setAttribute("data-open", "true")
+						: $main?.removeAttribute("data-open");
+				}
+			},
+		);
+	};
+
+	window.addEventListener("load", load);
+	document.addEventListener("astro:page-load", load);
+</script>
