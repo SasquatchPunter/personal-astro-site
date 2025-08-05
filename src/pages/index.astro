@@ -5,6 +5,8 @@ import Layout from "@src/layouts/Layout.astro";
 import NavBar from "@src/components/NavBar.astro";
 import { NavMenu } from "@src/components/features/nav-menu";
 import RenderBackground from "@src/components/RenderBackground.astro";
+import MainContent from "@src/layouts/MainContent.astro";
+import Noise from "@src/components/Noise.astro";
 
 const title = "Welcome";
 const metadata: Metadata = {
@@ -13,10 +15,15 @@ const metadata: Metadata = {
 ---
 
 <Layout title={title} metadata={metadata}>
+	<Noise />
 	<RenderBackground />
 	<NavMenu />
 
 	<NavBar />
 
-	<!-- <NavMenu /> -->
+	<MainContent>
+		<header class="h-dvh w-full flex items-center justify-center">
+			<!-- <h1 class="font-boldonse text-4xl">H</h1> -->
+		</header>
+	</MainContent>
 </Layout>

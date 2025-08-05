@@ -31,6 +31,9 @@ export default {
 					},
 				},
 			},
+			backgroundImage: {
+				noise: "url('/textures/noise.svg')",
+			},
 		},
 	},
 	plugins: [],
