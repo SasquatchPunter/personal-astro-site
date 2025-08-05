@@ -1,6 +1,7 @@
 ---
 import type { Metadata } from "@src/types";
 
+import Noise from "@src/components/Noise.astro";
 import Layout from "@src/layouts/Layout.astro";
 import ProgressNotification from "@src/components/ProgressNotification.astro";
 import NavBar from "@src/components/NavBar.astro";
@@ -14,6 +15,7 @@ const metadata: Metadata = {
 ---
 
 <Layout title={title} metadata={metadata}>
+	<Noise />
 	<ProgressNotification />
 	<NavMenu />
 	<NavBar />
