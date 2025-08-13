@@ -1,14 +1,14 @@
 ---
 import SiteIcon from "@src/components/icons/SiteIcon.astro";
 import NavMenuToggle from "@src/components/features/nav-menu/NavMenuToggle.astro";
+import NavMenuIcon from "@src/components/icons/NavMenuIcon.astro";
 ---
 
-<header class="w-full h-16 p-4 fixed z-40 flex justify-between">
+<header class="w-full h-24 p-8 fixed z-40 flex justify-between">
 	<a href="/">
 		<SiteIcon class="h-full fill-none stroke-base-dark-text-default" />
 	</a>
-
-	<NavMenuToggle
-		class="h-full aspect-square fill-none stroke-base-dark-text-default"
-	/>
+	<NavMenuToggle class="h-full aspect-square">
+		<NavMenuIcon class="fill-none stroke-base-dark-text-default" />
+	</NavMenuToggle>
 </header>

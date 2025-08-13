@@ -1,6 +1,4 @@
 ---
-import NavMenuIcon from "@src/components/icons/NavMenuIcon.astro";
-
 type Props = {
 	/** Disables the toggle. Enabling it can be done via the nav-menu event dispatcher. */
 	disabled?: boolean;
@@ -12,35 +10,18 @@ const { disabled, class: className } = Astro.props;
 
 <button
 	id="nav-menu__toggle"
+	transition:persist="nav-menu__toggle"
 	class={className}
-	disabled={disabled}
-	transition:persist="nav-menu__toggle">
-	<NavMenuIcon id="nav-menu__icon" />
+	disabled={disabled}>
+	<slot />
 </button>
 
 <script>
 	import { navMenuStore } from "@src/stores";
 
-	const load = () => {
-		const $toggle = document.querySelector(
-			"#nav-menu__toggle",
-		) as HTMLButtonElement;
-		const $icon = document.querySelector("#nav-menu__icon") as HTMLElement;
+	const $toggle = document.querySelector(
+		"#nav-menu__toggle",
+	) as HTMLButtonElement;
 
-		const unsubscribe = navMenuStore.subscribe(
-			(value, oldValue, changed) => {
-				if (changed === undefined || changed === "open") {
-					value.open === true
-						? $icon.setAttribute("data-open", "true")
-						: $icon.removeAttribute("data-open");
-				}
-			},
-		);
-
-		$toggle.addEventListener("click", navMenuStore.actions.toggle);
-		document.addEventListener("astro:before-preparation", unsubscribe);
-	};
-
-	window.addEventListener("load", load);
-	document.addEventListener("astro:page-load", load);
+	$toggle.addEventListener("click", navMenuStore.actions.toggle);
 </script>

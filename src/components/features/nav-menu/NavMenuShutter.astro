@@ -15,28 +15,19 @@ const { class: className } = Astro.props;
 	import { navMenuStore } from "@src/stores";
 	import NavMenuShutterRenderer from "@src/webgl/NavMenuShutterRenderer";
 
-	let renderer: NavMenuShutterRenderer | null = null;
+	const $shutter = document.querySelector(
+		"#nav-menu__shutter",
+	) as HTMLCanvasElement;
 
-	const load = () => {
-		const $shutter = document.querySelector(
-			"#nav-menu__shutter",
-		) as HTMLCanvasElement;
+	const renderer = new NavMenuShutterRenderer($shutter, {
+		verticalCells: 40,
+	});
 
-		if (!renderer) {
-			renderer = new NavMenuShutterRenderer($shutter, {
-				verticalCells: 40,
-			});
+	navMenuStore.subscribe((value, oldValue, changed) => {
+		if (changed === "open") {
+			value.open === true ? renderer.open() : renderer.close();
 		}
+	});
 
-		navMenuStore.subscribe((value, oldValue, changed) => {
-			if (changed === "open") {
-				value.open === true ? renderer!.open() : renderer?.close();
-			}
-		});
-
-		window.addEventListener("resize", renderer.resize);
-	};
-
-	document.addEventListener("DOMContentLoaded", load);
-	document.addEventListener("astro:page-load", load);
+	window.addEventListener("resize", renderer.resize);
 </script>
