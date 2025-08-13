@@ -3,31 +3,30 @@ import NavMenuShutter from "@src/components/features/nav-menu/NavMenuShutter.ast
 import NavMenuOverlay from "@src/components/features/nav-menu/NavMenuOverlay.astro";
 ---
 
-<div
-	id="nav-menu"
-	class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none z-40">
+<div class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none z-40">
 	<NavMenuShutter class="w-full h-full" />
-	<NavMenuOverlay id="nav-menu__overlay" />
+	<NavMenuOverlay />
 </div>
 
 <script>
 	import { navMenuStore } from "@src/stores";
 
-	const load = () => {
-		const $menu = document.querySelector(
-			"#nav-menu__overlay",
-		) as HTMLElement;
-
-		navMenuStore.subscribe((value, oldValue, changed) => {
-			if (changed === "open") {
-				value.open === true
-					? $menu.setAttribute("data-open", "true")
-					: $menu.removeAttribute("data-open");
-			}
-		});
+	const updateBody = (body: HTMLElement) => {
+		navMenuStore.read().open
+			? body.setAttribute("data-nav-open", "true")
+			: body.removeAttribute("data-nav-open");
 	};
 
-	document.addEventListener("load", load);
-	document.addEventListener("astro:page-load", load);
+	navMenuStore.subscribe((value, oldValue, changed) => {
+		if (changed === "open") {
+			value.open === true
+				? document.body.setAttribute("data-nav-open", "true")
+				: document.body.removeAttribute("data-nav-open");
+		}
+	});
+
+	document.addEventListener("astro:before-swap", ({ newDocument }) => {
+		updateBody(newDocument.body);
+	});
 	document.addEventListener("astro:page-load", navMenuStore.actions.close);
 </script>
