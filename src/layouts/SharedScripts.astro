@@ -1,5 +1,22 @@
 ---
+import type { Fallback } from "astro:transitions/client";
 import ClientRouter from "astro/components/ClientRouter.astro";
+
+type Props = {
+	clientRouter?: {
+		enabled?: boolean;
+		fallback?: Fallback;
+	};
+};
+
+const { clientRouter = {} } = Astro.props;
+
+clientRouter.fallback = clientRouter.fallback || "swap";
+clientRouter.enabled = clientRouter.enabled || false;
 ---
 
-<ClientRouter fallback="swap" />
+{
+	clientRouter.enabled === true ? (
+		<ClientRouter fallback={clientRouter.fallback} />
+	) : null
+}
