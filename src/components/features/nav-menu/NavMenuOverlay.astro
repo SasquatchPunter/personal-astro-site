@@ -1,15 +1,6 @@
----
-type Props = {
-	id?: string;
-};
-
-const { id } = Astro.props;
----
-
 <nav
-	id={id}
 	class="fixed left-0 right-0 top-0 bottom-0 flex justify-end items-center"
-	transition:persist={id}>
+	transition:persist="nav-menu__overlay">
 	<ul class="font-michroma flex flex-col gap-4 m-2 z-10">
 		<li><a href="/">Home</a></li>
 		<li><a href="/blog">Blog</a></li>
@@ -19,7 +10,7 @@ const { id } = Astro.props;
 </nav>
 
 <style>
-	nav[data-open] {
+	body[data-nav-open] nav {
 		pointer-events: all;
 		& ul {
 			transition-delay: 250ms;

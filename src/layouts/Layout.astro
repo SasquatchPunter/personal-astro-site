@@ -3,7 +3,6 @@ import type { Metadata } from "@src/types";
 
 import Title from "@src/layouts/Title.astro";
 import SharedMetaTags from "@src/layouts/SharedMetaTags.astro";
-import GeneratedMetaTags from "@src/layouts/GeneratedMetaTags.astro";
 import SharedLinks from "@src/layouts/SharedLinks.astro";
 import SharedScripts from "@src/layouts/SharedScripts.astro";
 
@@ -14,6 +13,8 @@ import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 import Jersey15Provider from "@src/components/fonts/Jersey15Provider.astro";
 
+import "@src/styles/global.css";
+
 type Props = {
 	title?: string;
 	subtitle?: string;
@@ -21,6 +22,20 @@ type Props = {
 };
 
 const { title, subtitle, metadata } = Astro.props;
+
+const sharedScriptsOptions: Parameters<typeof SharedScripts>["0"] = {
+	clientRouter: { enabled: true, fallback: "swap" },
+};
+
+const sharedMetaTagsOptions: Parameters<typeof SharedMetaTags>["0"] = {
+	abstract: metadata?.abstract,
+	author: metadata?.author,
+	description: metadata?.description,
+	keywords: metadata?.keywords,
+	robots: metadata?.robots,
+	httpContentType: metadata?.httpContentType,
+	httpRefresh: metadata?.httpRefresh,
+};
 ---
 
 <html class="bg-base-dark-2">
@@ -31,23 +46,13 @@ const { title, subtitle, metadata } = Astro.props;
 		<DosisProvider />
 		<IcebergProvider />
 		<MichromaProvider preload />
-		<BoldonseProvider />
+		<BoldonseProvider preload />
 		<Jersey15Provider />
 		<BebasNeueProvider />
 
-		<SharedMetaTags />
 		<SharedLinks />
-		<SharedScripts />
-
-		<GeneratedMetaTags
-			abstract={metadata?.abstract}
-			author={metadata?.author}
-			description={metadata?.description}
-			keywords={metadata?.keywords}
-			robots={metadata?.robots}
-			httpContentType={metadata?.httpContentType}
-			httpRefresh={metadata?.httpRefresh}
-		/>
+		<SharedScripts {...sharedScriptsOptions} />
+		<SharedMetaTags {...sharedMetaTagsOptions} />
 	</head>
 
 	<body

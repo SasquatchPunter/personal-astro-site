@@ -1,4 +1,35 @@
+---
+import type { Metadata } from "@src/types";
+
+type Props = Metadata;
+
+const {
+	abstract,
+	author,
+	description,
+	keywords,
+	robots,
+	httpContentType,
+	httpRefresh,
+} = Astro.props;
+---
+
+<!-- Unconditional Tags -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 <meta name="theme-color" content="#000000" />
+
+<!-- Conditional Tags -->
+{abstract ? <meta name="abstract" content={abstract} /> : null}
+{author ? <meta name="author" content={author} /> : null}
+{description ? <meta name="description" content={description} /> : null}
+{keywords ? <meta name="keywords" content={keywords?.join(",")} /> : null}
+{robots ? <meta name="robots" content={robots} /> : null}
+
+{
+	httpContentType ? (
+		<meta http-equiv="content-type" content={httpContentType} />
+	) : null
+}
+{httpRefresh ? <meta http-equiv="refresh" content={httpRefresh} /> : null}
