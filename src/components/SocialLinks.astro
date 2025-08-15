@@ -4,7 +4,7 @@ import FacebookIcon from "@src/components/icons/FacebookIcon.astro";
 import GithubIcon from "@src/components/icons/GithubIcon.astro";
 import LinkedinIcon from "@src/components/icons/LinkedinIcon.astro";
 import EmailIcon from "@src/components/icons/EmailIcon.astro";
-import ShadertoyIcon from "./icons/ShadertoyIcon.astro";
+import ShadertoyIcon from "@src/components/icons/ShadertoyIcon.astro";
 
 export type Props = {
 	github?: string;
@@ -30,35 +30,35 @@ const {
 {
 	typeof github === "string" ? (
 		<a target="_blank" href={github} class={className} title="Github">
-			<GithubIcon />
+			<GithubIcon class="size-full" />
 		</a>
 	) : null
 }
 {
 	typeof facebook === "string" ? (
 		<a target="_blank" href={facebook} class={className} title="Facebook">
-			<FacebookIcon />
+			<FacebookIcon class="size-full" />
 		</a>
 	) : null
 }
 {
 	typeof linkedin === "string" ? (
 		<a target="_blank" href={linkedin} class={className} title="LinkedIn">
-			<LinkedinIcon />
+			<LinkedinIcon class="size-full" />
 		</a>
 	) : null
 }
 {
 	typeof codepen === "string" ? (
 		<a target="_blank" href={codepen} class={className} title="Codepen">
-			<CodepenIcon />
+			<CodepenIcon class="size-full" />
 		</a>
 	) : null
 }
 {
 	typeof shadertoy === "string" ? (
 		<a target="_blank" href={shadertoy} class={className} title="Shadertoy">
-			<ShadertoyIcon />
+			<ShadertoyIcon class="size-full" />
 		</a>
 	) : null
 }
@@ -69,7 +69,7 @@ const {
 			href={`mailto:${email}`}
 			class={className}
 			title="Email">
-			<EmailIcon />
+			<EmailIcon class="size-full" />
 		</a>
 	) : null
 }

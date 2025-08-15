@@ -1,5 +1,5 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from "@src/assets/icons/codepen.svg";
 
 type Props = {
 	class?: string;
@@ -9,4 +9,4 @@ type Props = {
 const { class: className, id } = Astro.props;
 ---
 
-<Icon name="codepen" class={className} id={id} />
+<Icon class={className} id={id} />
