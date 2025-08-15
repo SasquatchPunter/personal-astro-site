@@ -1,5 +1,12 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from "tailwindcss";
+
+import plugin from "tailwindcss/plugin";
+
+const addNavMenuVariants = plugin(({ addVariant }) => {
+	addVariant("nav-open", "[data-nav-open] &");
+});
+
+const config: Config = {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	theme: {
 		/*
@@ -11,12 +18,21 @@ export default {
 				2xl: 1536px
 		*/
 		extend: {
+			animation: {},
+			keyframes: {},
+			data: {
+				open: "open",
+			},
+			fontSize: {
+				xxs: ["0.625rem", { lineHeight: "0.75rem" }],
+			},
 			fontFamily: {
 				boldonse: "Boldonse",
 				dosis: "Dosis",
 				iceberg: "Iceberg",
 				jersey15: "Jersey15",
 				michroma: "Michroma",
+				bebasneue: "BebasNeue",
 			},
 			colors: {
 				base: {
@@ -36,5 +52,7 @@ export default {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [addNavMenuVariants],
 };
+
+export default config;
