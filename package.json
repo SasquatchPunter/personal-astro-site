@@ -18,13 +18,12 @@
 		"sanity:migrations:createSingletons": "sanity migration run createSingletons --project rlvmswqf"
 	},
 	"dependencies": {
+		"-": "^0.0.1",
+		"@sanity/client": "^6.24.1",
+		"@sanity/vision": "^3.68.3",
 		"@astrojs/react": "^4.1.2",
 		"@astrojs/tailwind": "^5.1.4",
 		"@originjs/vite-plugin-content": "^1.0.5",
-		"@sanity/client": "^6.24.1",
-		"@sanity/vision": "^3.68.3",
-		"@types/react": "^19.0.2",
-		"@types/react-dom": "^19.0.2",
 		"ammojs": "^0.0.2",
 		"ammojs-typed": "^1.0.6",
 		"animejs": "^4.0.2",
@@ -42,6 +41,8 @@
 	},
 	"devDependencies": {
 		"@types/jsdom": "^21.1.7",
+		"@types/react": "^19.0.2",
+		"@types/react-dom": "^19.0.2",
 		"@types/three": "^0.173.0",
 		"groq": "^3.68.3",
 		"prettier": "^3.4.2",
