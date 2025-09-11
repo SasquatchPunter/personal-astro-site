@@ -10,8 +10,6 @@ const initialStore: NavMenuStore = {
 
 const store = map(initialStore);
 
-const read = store.get;
-
 const actions = {
 	open() {
 		store.setKey("open", true);
@@ -24,8 +22,6 @@ const actions = {
 	},
 };
 
-const listen = store.listen;
-
 const subscribe = store.subscribe;
 
-export default { read, actions, listen, subscribe };
+export default { actions, read: store.get, listen: store.listen, subscribe };
