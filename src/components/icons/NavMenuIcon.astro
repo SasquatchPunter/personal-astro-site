@@ -1,15 +1,10 @@
 ---
-type Props = {
-	class?: string;
-};
+import type { HTMLAttributes } from "astro/types";
 
-const { class: className } = Astro.props;
+type Props = HTMLAttributes<"svg">;
 ---
 
-<svg
-	class={className}
-	viewBox="0 -32 32 96"
-	transition:persist="nav-menu__icon">
+<svg viewBox="0 -32 32 96" {...Astro.props}>
 	<g>
 		<path d="M 2,10 L 8,6 L 30,6 L 24,10 Z"></path>
 		<path d="M 2,18 L 8,14 L 30,14 L 24,18 Z"></path>
