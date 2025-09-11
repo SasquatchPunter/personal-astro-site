@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class:list={["relative", className]} {...rest}>
+	<div class="hud-x-line top-0"></div>
+	<div class="hud-x-line bottom-0"></div>
+	<div class="border border-base-dark-hud-line relative mx-3">
+		<slot />
+		<div class="hud-point -top-px -left-px"></div>
+		<div class="hud-point -top-px -right-px"></div>
+		<div class="hud-point -bottom-px -left-px"></div>
+		<div class="hud-point -bottom-px -right-px"></div>
+	</div>
+</div>

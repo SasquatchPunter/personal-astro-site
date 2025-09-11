@@ -18,6 +18,14 @@ const config: Config = {
 				2xl: 1536px
 		*/
 		extend: {
+			spacing: {
+				17: "4.25rem",
+				18: "4.5rem",
+				19: "4.75rem",
+				21: "5.25rem",
+				22: "5.5rem",
+				23: "5.75rem",
+			},
 			animation: {},
 			keyframes: {},
 			data: {
@@ -43,6 +51,10 @@ const config: Config = {
 							default: "#dfd",
 							link: "#9a9",
 							code: "#dfd",
+						},
+						hud: {
+							line: "#384038",
+							marker: "#efe",
 						},
 					},
 				},
