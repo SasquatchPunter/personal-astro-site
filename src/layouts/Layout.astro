@@ -13,6 +13,8 @@ import MichromaProvider from "@src/components/fonts/MichromaProvider.astro";
 import BoldonseProvider from "@src/components/fonts/BoldonseProvider.astro";
 import Jersey15Provider from "@src/components/fonts/Jersey15Provider.astro";
 
+import "@src/styles/global.css";
+
 type Props = {
 	title?: string;
 	subtitle?: string;
@@ -54,7 +56,7 @@ const sharedMetaTagsOptions: Parameters<typeof SharedMetaTags>["0"] = {
 	</head>
 
 	<body
-		class="min-h-dvh text-base-dark-text-default bg-gradient-to-tr from-base-dark-1 to-base-2 bg-fixed overflow-x-hidden">
+		class="min-h-dvh text-base-dark-text-default bg-gradient-to-tr from-base-dark-1 to-base-2 bg-fixed overflow-x-hidden overscroll-y-none">
 		<slot />
 	</body></html
 >

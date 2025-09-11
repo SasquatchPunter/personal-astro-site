@@ -2,11 +2,10 @@
 import type { Metadata } from "@src/types";
 
 import Layout from "@src/layouts/Layout.astro";
-import NavBar from "@src/components/NavBar.astro";
 import { NavMenu } from "@src/components/features/nav-menu";
 import RenderBackground from "@src/components/RenderBackground.astro";
-import MainContent from "@src/layouts/MainContent.astro";
 import Noise from "@src/components/Noise.astro";
+import HUD from "@src/components/HUD.astro";
 
 const title = "Welcome";
 const metadata: Metadata = {
@@ -18,12 +17,5 @@ const metadata: Metadata = {
 	<Noise />
 	<RenderBackground />
 	<NavMenu />
-
-	<NavBar />
-
-	<MainContent>
-		<header
-			class="h-dvh w-full flex flex-col items-center justify-center relative">
-		</header>
-	</MainContent>
+	<HUD />
 </Layout>

@@ -1,0 +1,11 @@
+@layer components {
+	.hud-x-line {
+		@apply absolute w-full h-px bg-base-dark-hud-line;
+	}
+	.hud-y-line {
+		@apply absolute w-px h-full bg-base-dark-hud-line;
+	}
+	.hud-point {
+		@apply absolute w-px h-px bg-base-dark-hud-marker;
+	}
+}

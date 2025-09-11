@@ -1,27 +1,21 @@
 ---
-type Props = {
-	/** Disables the toggle. Enabling it can be done via the nav-menu event dispatcher. */
-	disabled?: boolean;
-	class?: string;
-};
+import type { HTMLAttributes } from "astro/types";
 
-const { disabled, class: className } = Astro.props;
+type Props = HTMLAttributes<"button">;
 ---
 
-<button
-	id="nav-menu__toggle"
-	transition:persist="nav-menu__toggle"
-	class={className}
-	disabled={disabled}>
+<button data-nav-menu-toggle {...Astro.props}>
 	<slot />
 </button>
 
 <script>
 	import { navMenuStore } from "@src/stores";
 
-	const $toggle = document.querySelector(
-		"#nav-menu__toggle",
-	) as HTMLButtonElement;
+	const $toggle = document.querySelectorAll(
+		`[data-nav-menu-toggle]`,
+	) as NodeListOf<HTMLButtonElement>;
 
-	$toggle.addEventListener("click", navMenuStore.actions.toggle);
+	$toggle.forEach((toggle) => {
+		toggle.addEventListener("click", navMenuStore.actions.toggle);
+	});
 </script>
